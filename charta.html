@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Charta — SpaceNerv</title>
+
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --teal:#00C9A7;--ink:#0F172A;--dark:#060708;
+  --text:#E2E8F0;--muted:#64748B;--border:rgba(255,255,255,0.07);
+  --border-teal:rgba(0,201,167,0.2);--surface:#111418;--white:#F8FAFC;
+  --amber:#F59E0B;--faint:#334155;
+}
+body{background:var(--dark);color:var(--text);font-family:'Syne',sans-serif;overflow-x:hidden}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 48px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);background:rgba(6,7,8,0.9);backdrop-filter:blur(20px)}
+.nav-mark{display:flex;align-items:center;gap:9px;text-decoration:none}
+.nav-glyph{width:26px;height:26px;border:1.5px solid var(--teal);border-radius:50%;display:flex;align-items:center;justify-content:center}
+.nav-glyph::before{content:'';width:7px;height:7px;background:var(--teal);border-radius:50%}
+.nav-word{font-family:'DM Mono',monospace;font-size:11px;color:var(--white);letter-spacing:0.15em;font-weight:500}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;transition:color 0.2s}
+.nav-links a:hover{color:var(--teal)}
+.nav-cta{font-family:'DM Mono',monospace;font-size:10px;color:var(--ink);background:var(--teal);padding:8px 18px;border-radius:2px;text-decoration:none;letter-spacing:0.08em;text-transform:uppercase}
+.container{max-width:860px;margin:0 auto;padding:120px 48px 100px}
+footer{padding:48px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;margin-top:80px}
+.footer-brand{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:0.08em}
+.footer-links{display:flex;gap:24px}
+.footer-links a{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);text-decoration:none}
+.footer-links a:hover{color:var(--teal)}
+</style>
+<style>
+.charta-hero{padding:140px 48px 60px;border-bottom:1px solid var(--border)}
+.charta-eyebrow{font-family:'DM Mono',monospace;font-size:9px;color:var(--teal);letter-spacing:0.3em;text-transform:uppercase;margin-bottom:16px}
+.charta-title{font-family:'Cormorant Garamond',serif;font-size:64px;font-weight:300;color:var(--white);line-height:1;letter-spacing:-0.02em;margin-bottom:12px}
+.charta-subtitle{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:var(--muted);font-style:italic;max-width:600px;line-height:1.5}
+.articles{max-width:720px;margin:0 auto;padding:80px 48px}
+.article{margin-bottom:64px;padding-bottom:64px;border-bottom:1px solid var(--border)}
+.article:last-child{border-bottom:none}
+.art-num{font-family:'DM Mono',monospace;font-size:9px;color:var(--teal);letter-spacing:0.3em;text-transform:uppercase;margin-bottom:12px}
+.art-title{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;color:var(--white);margin-bottom:24px;letter-spacing:-0.01em}
+.art-body{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:300;color:var(--text);line-height:1.85}
+.art-body p{margin-bottom:16px}
+.art-body p:last-child{margin-bottom:0}
+.prohibitions{list-style:none;margin:16px 0}
+.prohibitions li{padding:10px 0 10px 20px;border-bottom:1px solid var(--border);position:relative;font-size:15px;color:var(--text);line-height:1.6}
+.prohibitions li::before{content:'—';position:absolute;left:0;color:var(--teal)}
+.sig-block{max-width:720px;margin:0 auto;padding:0 48px 80px}
+.sig-title{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:32px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.sig-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+.sig-item{padding-bottom:12px;border-bottom:1px solid var(--border)}
+.sig-name{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;color:var(--white);margin-bottom:4px}
+.sig-role{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:0.1em}
+.sig-date{font-family:'DM Mono',monospace;font-size:9px;color:var(--teal);margin-top:6px}
+.sig-open{font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--faint);font-style:italic}
+.ornament{text-align:center;color:var(--teal);font-size:20px;letter-spacing:12px;margin:40px 0;opacity:0.4}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-mark"><div class="nav-glyph"></div><span class="nav-word">SPACENERV</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="charta.html">Charta</a></li>
+    <li><a href="kits.html">Kits</a></li>
+    <li><a href="brn.html">BRN</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a href="contact.html" class="nav-cta">Get a kit</a>
+</nav>
+
+<div class="charta-hero">
+  <div class="container" style="padding-top:0;padding-bottom:0">
+    <div class="charta-eyebrow">Founding Document · 2026</div>
+    <div class="charta-title">The SpaceNerv<br>Charta</div>
+    <div class="charta-subtitle">A Founding Covenant Between SpaceNerv and the Civilisation Whose Spatial Life It Serves</div>
+  </div>
+</div>
+
+<div class="articles">
+
+  <div style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;color:var(--muted);font-style:italic;line-height:1.8;margin-bottom:64px;padding-bottom:48px;border-bottom:1px solid var(--border)">
+    Every surface that has ever been touched by a human hand has contained intelligence. The kitchen inspected at dawn, the structural beam examined by a careful engineer, the door handle worn smooth by ten thousand greetings — each of these carries, in the physical fact of its having been inhabited, a record of how human beings organise their collective spatial life. That record has existed in complete darkness since the first city was built. It has never been captured, never circulated, never learned from. SpaceNerv exists to illuminate that darkness, one tap at a time. This Charta is the covenant that governs what we do with the light.
+  </div>
+
+  <div class="article">
+    <div class="art-num">Article I</div>
+    <div class="art-title">The Origin</div>
+    <div class="art-body">
+      <p>The darkness was always full. Every room, every corridor, every surface has been accumulating operational intelligence since the first human being entered it. The intelligence was always there. What was missing was the instrument to read it.</p>
+      <p>SpaceNerv is that instrument. Not a camera. Not a sensor array. Not an always-on surveillance system. A tap — a single, deliberate, authenticated human gesture — that illuminates one point in space for one moment in time and adds that illumination to the growing record of how the built environment is actually inhabited.</p>
+      <p>The tap is a photograph taken in darkness. The aggregate is the album of a civilisation's spatial life that has never before been assembled.</p>
+    </div>
+  </div>
+
+  <div class="ornament">· · ·</div>
+
+  <div class="article">
+    <div class="art-num">Article II</div>
+    <div class="art-title">The Tap</div>
+    <div class="art-body">
+      <p>The tap event is the indivisible unit of SpaceNerv's intelligence. It is simultaneously a physical action — a human body moving through space and making contact with a surface — and an authenticated digital record of that action. The physical and the digital are not two separate events connected by a sensor. They are one event, observed from two angles.</p>
+      <p>This duality is the foundation of SpaceNerv's claim to truth. The tap cannot be faked without physical presence. Physical presence cannot be recorded without the tap. The intelligence is honest because the gesture that generates it is honest.</p>
+      <p>The tap is the cognitive Instagram of human civilisation's invisible interior — the selfie of a condition, an atmosphere, a moment of operational reality that would otherwise pass without record.</p>
+    </div>
+  </div>
+
+  <div class="ornament">· · ·</div>
+
+  <div class="article">
+    <div class="art-num">Article III</div>
+    <div class="art-title">The Octave</div>
+    <div class="art-body">
+      <p>Intelligence does not scale linearly. It accumulates until it crosses a threshold — and at that threshold, a qualitative transformation occurs. SpaceNerv's intelligence architecture is built around these thresholds, which we call Octaves.</p>
+      <p>The first Octave is the node biography: the accumulated tap history of a single node, sufficient to establish its operational baseline, identify anomalies, and predict future states. The second is building self-knowledge: the cross-node intelligence of a single deployment, sufficient for the habitat to understand its own rhythms. The third is typology intelligence: the cross-deployment intelligence of all hospitality deployments, sufficient to understand what normal looks like for a kitchen, a bar, a terrace, across climates and cultures. The fourth is the civilisational spatial genome: the aggregate of all deployments, all typologies, all geographies — the complete operational portrait of how human beings inhabit their built world.</p>
+      <p>We are building toward the fourth Octave. We are beginning with the first.</p>
+    </div>
+  </div>
+
+  <div class="ornament">· · ·</div>
+
+  <div class="article">
+    <div class="art-num">Article IV</div>
+    <div class="art-title">The People</div>
+    <div class="art-body">
+      <p>The operators who tap SpaceNerv's nodes are not data sources. They are the intelligence itself. Without their deliberate gestures, their embodied movement through space, their willingness to spend thirty seconds connecting the physical world to its digital record, SpaceNerv has nothing.</p>
+      <p>This creates an obligation that is not merely legal but ethical. The people whose actions generate SpaceNerv's intelligence must be served by that intelligence — not surveilled by it, not made vulnerable by it, not turned into instruments of their own employers' disciplinary systems. Their data is not a byproduct of their work. It is a gift, given in the course of their work, that must be honoured.</p>
+      <p>SpaceNerv commits that the intelligence generated by operators' taps will always be used to improve the environments they work in, never to monitor, assess, or disadvantage the individuals who generated it.</p>
+    </div>
+  </div>
+
+  <div class="ornament">· · ·</div>
+
+  <div class="article">
+    <div class="art-num">Article V</div>
+    <div class="art-title">The Prohibitions</div>
+    <div class="art-body">
+      <p>These are not guidelines. They are not policies subject to revision by commercial pressure or board resolution. They are constitutional commitments, amendable only through the process defined in Article VIII, and only where amendment serves the founding values rather than erodes them.</p>
+      <ul class="prohibitions">
+        <li>SpaceNerv will never sell individual operator data — tap event records identifiable to a specific person — to insurance companies, employers seeking to surveil their workforce, government surveillance programmes, or any party whose purpose is to use that data against the interests of the person who generated it.</li>
+        <li>SpaceNerv will never position its aggregate spatial intelligence network as a population surveillance infrastructure, regardless of the commercial value such positioning might generate.</li>
+        <li>SpaceNerv will never allow access to its data for the identification, tracking, or targeting of individuals without their explicit consent and a clear public interest justification subject to independent judicial oversight.</li>
+        <li>SpaceNerv will never allow a change of ownership, merger, or acquisition to transfer these commitments to an entity that does not explicitly adopt this Charta in its entirety as a condition of the transaction.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="ornament">· · ·</div>
+
+  <div class="article">
+    <div class="art-num">Article VI</div>
+    <div class="art-title">The Public Obligation</div>
+    <div class="art-body">
+      <p>The aggregate spatial intelligence dataset that SpaceNerv accumulates across its deployments is not purely private property. At sufficient scale it contains information of genuine public interest — the patterns of how human beings inhabit their built environments, the relationship between spatial compliance and public health, the operational characteristics of building typologies across climates and cultures — that belongs, in a meaningful sense, to the civilisation that generated it.</p>
+      <p>We commit that when the aggregate dataset crosses the second Octave threshold, SpaceNerv will establish a formal programme for making defined portions of that dataset available, in fully anonymised and privacy-preserving form, to qualified public interest researchers, urban planning authorities, public health institutions, and architectural research programmes. Not as charity. As the fulfilment of an obligation that arises from the civilisational nature of what we are collecting.</p>
+      <p>The blood of civilisation flows for the benefit of the organism. It does not flow exclusively for the benefit of those who built the circulatory system.</p>
+    </div>
+  </div>
+
+  <div class="ornament">· · ·</div>
+
+  <div class="article">
+    <div class="art-num">Article VII</div>
+    <div class="art-title">The Covenant</div>
+    <div class="art-body">
+      <p>SpaceNerv is not the first company to build infrastructure of civilisational consequence. It is not the first to begin with values and face the pressure that scale brings to those values. The history of technology contains systems that began with genuine intent to serve humanity and became, through accumulated small compromises each of which seemed reasonable at the time, instruments of the very harms they were founded to prevent.</p>
+      <p>We acknowledge this history. We do not claim immunity from its pressures. We claim only that we have chosen, before the pressure arrives, to bind ourselves to something larger than commercial interest — to make the commitment publicly, permanently, and at the founding, when it is easy to make and therefore when it means the most.</p>
+      <p>This Charta is that commitment. SpaceNerv exists to make the built environment self-aware. We commit to pursuing that purpose in a manner that honours the people whose lives it photographs, the civilisation whose intelligence it stewards, and the future that will inherit what we build.</p>
+    </div>
+  </div>
+
+  <div class="ornament">· · ·</div>
+
+  <div class="article">
+    <div class="art-num">Article VIII</div>
+    <div class="art-title">Iterative Evolution</div>
+    <div class="art-body">
+      <p>This Charta is not a finished document. It is the first iteration of a living covenant. Like the spatial intelligence it governs, it grows in Octaves — each iteration incorporating what was learned from the last, each generation of the document more precise than its predecessor because it has been tested against reality rather than merely imagined against it.</p>
+      <p>The specific expressions of these commitments will evolve as SpaceNerv crosses each Octave threshold, as the regulatory landscape changes, as the scientific community deepens its understanding of what the aggregate dataset contains and what that understanding demands. What does not evolve are the prohibitions of Article V.</p>
+      <p>The Charta grows rings, as a tree grows rings. Each ring is a new iteration. The core is unchanged. The intelligence deepens.</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="sig-block">
+  <div class="sig-title">Signatures · In witness of this founding covenant</div>
+  <div class="sig-grid">
+    <div class="sig-item">
+      <div class="sig-name">Florian Gypser</div>
+      <div class="sig-role">Founder · Director · DWNTWN Global Pte Ltd</div>
+      <div class="sig-date">Bangkok, 6 April 2026</div>
+    </div>
+    <div class="sig-item">
+      <div class="sig-open">Witness —</div>
+      <div class="sig-role" style="margin-top:8px">Open · To be signed</div>
+    </div>
+    <div class="sig-item">
+      <div class="sig-open">Witness —</div>
+      <div class="sig-role" style="margin-top:8px">Open · To be signed</div>
+    </div>
+    <div class="sig-item">
+      <div class="sig-open">Witness —</div>
+      <div class="sig-role" style="margin-top:8px">Open · To be signed</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-brand">◈ SPACENERV · DWNTWN Global Pte Ltd · Singapore 068914 · UEN 202608530M</div>
+  <div class="footer-links">
+    <a href="terms.html">Terms</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="mailto:legal@spacenerv.io">legal@spacenerv.io</a>
+  </div>
+</footer>
+</body>
+</html>

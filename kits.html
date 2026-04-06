@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kits — SpaceNerv</title>
+
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --teal:#00C9A7;--ink:#0F172A;--dark:#060708;
+  --text:#E2E8F0;--muted:#64748B;--border:rgba(255,255,255,0.07);
+  --border-teal:rgba(0,201,167,0.2);--surface:#111418;--white:#F8FAFC;
+  --amber:#F59E0B;--faint:#334155;
+}
+body{background:var(--dark);color:var(--text);font-family:'Syne',sans-serif;overflow-x:hidden}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 48px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);background:rgba(6,7,8,0.9);backdrop-filter:blur(20px)}
+.nav-mark{display:flex;align-items:center;gap:9px;text-decoration:none}
+.nav-glyph{width:26px;height:26px;border:1.5px solid var(--teal);border-radius:50%;display:flex;align-items:center;justify-content:center}
+.nav-glyph::before{content:'';width:7px;height:7px;background:var(--teal);border-radius:50%}
+.nav-word{font-family:'DM Mono',monospace;font-size:11px;color:var(--white);letter-spacing:0.15em;font-weight:500}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;transition:color 0.2s}
+.nav-links a:hover{color:var(--teal)}
+.nav-cta{font-family:'DM Mono',monospace;font-size:10px;color:var(--ink);background:var(--teal);padding:8px 18px;border-radius:2px;text-decoration:none;letter-spacing:0.08em;text-transform:uppercase}
+.container{max-width:860px;margin:0 auto;padding:120px 48px 100px}
+footer{padding:48px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;margin-top:80px}
+.footer-brand{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:0.08em}
+.footer-links{display:flex;gap:24px}
+.footer-links a{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);text-decoration:none}
+.footer-links a:hover{color:var(--teal)}
+</style>
+<style>
+.kits-hero{padding:140px 48px 60px;border-bottom:1px solid var(--border)}
+.kits-eyebrow{font-family:'DM Mono',monospace;font-size:9px;color:var(--teal);letter-spacing:0.3em;text-transform:uppercase;margin-bottom:16px}
+.kits-title{font-family:'Cormorant Garamond',serif;font-size:64px;font-weight:300;color:var(--white);line-height:1;letter-spacing:-0.02em;margin-bottom:12px}
+.kits-sub{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:var(--muted);font-style:italic}
+.how-strip{background:var(--surface);border-bottom:1px solid var(--border);padding:20px 48px;display:flex;gap:40px;align-items:center}
+.how-step{display:flex;align-items:center;gap:10px;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.05em}
+.how-num{width:20px;height:20px;background:var(--teal);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;color:var(--ink);font-weight:700;flex-shrink:0}
+.how-arrow{color:var(--faint);font-size:12px}
+.kit-section{padding:60px 48px;border-bottom:1px solid var(--border)}
+.kit-section:last-child{border-bottom:none}
+.kit-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:32px}
+.kit-header-left{}
+.kit-num{font-family:'DM Mono',monospace;font-size:9px;color:var(--teal);letter-spacing:0.2em;margin-bottom:8px}
+.kit-name{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:300;color:var(--white);line-height:1;letter-spacing:-0.01em;margin-bottom:4px}
+.kit-tagline{font-size:14px;color:var(--muted);line-height:1.5}
+.kit-icon-large{font-size:48px}
+.kit-price{font-family:'DM Mono',monospace;font-size:11px;color:var(--teal);margin-top:12px;letter-spacing:0.05em}
+.nodes-table{width:100%;border-collapse:collapse;margin-bottom:24px}
+.nodes-table th{font-family:'DM Mono',monospace;font-size:8px;color:var(--muted);letter-spacing:0.15em;text-transform:uppercase;padding:8px 12px;text-align:left;border-bottom:1px solid var(--border);font-weight:400}
+.nodes-table td{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,0.04);font-size:12px;color:var(--text);vertical-align:top}
+.nodes-table tr:last-child td{border-bottom:none}
+.nd-num{font-family:'DM Mono',monospace;font-size:10px;color:var(--teal);font-weight:500}
+.nd-icon{font-size:14px}
+.nd-name{font-weight:600;color:var(--white)}
+.nd-checks{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);line-height:1.8}
+.nd-type{font-family:'DM Mono',monospace;font-size:7px;padding:2px 6px;border-radius:2px;letter-spacing:0.08em;text-transform:uppercase}
+.nd-sop{background:rgba(0,201,167,0.1);color:var(--teal)}
+.nd-comply{background:rgba(245,158,11,0.1);color:var(--amber)}
+.nd-interval{font-family:'DM Mono',monospace;font-size:9px;color:var(--faint)}
+.kit-cta{display:inline-flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:10px;color:var(--ink);background:var(--teal);padding:12px 24px;border-radius:2px;text-decoration:none;letter-spacing:0.1em;text-transform:uppercase}
+.kit-cta:hover{opacity:0.85}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-mark"><div class="nav-glyph"></div><span class="nav-word">SPACENERV</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="charta.html">Charta</a></li>
+    <li><a href="kits.html">Kits</a></li>
+    <li><a href="brn.html">BRN</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a href="contact.html" class="nav-cta">Get a kit</a>
+</nav>
+
+<div class="kits-hero">
+  <div class="kits-eyebrow">Seven pre-configured kits</div>
+  <div class="kits-title">Download · Print · Use.</div>
+  <div class="kits-sub">Each kit is pre-configured for your operational context. Pay once, download immediately, print your QR labels, and be operational in under five minutes.</div>
+</div>
+
+<div class="how-strip">
+  <div class="how-step"><div class="how-num">1</div>Select your kit</div>
+  <div class="how-arrow">→</div>
+  <div class="how-step"><div class="how-num">2</div>Pay · SGD 39/month</div>
+  <div class="how-arrow">→</div>
+  <div class="how-step"><div class="how-num">3</div>Download ZIP</div>
+  <div class="how-arrow">→</div>
+  <div class="how-step"><div class="how-num">4</div>Print QR labels</div>
+  <div class="how-arrow">→</div>
+  <div class="how-step"><div class="how-num">5</div>Write node names</div>
+  <div class="how-arrow">→</div>
+  <div class="how-step"><div class="how-num">6</div>Place · Tap · Live</div>
+</div>
+
+
+<div class="kit-section">
+  <div class="kit-header">
+    <div class="kit-header-left">
+      <div class="kit-num">Kit 01</div>
+      <div class="kit-name">Hospitality Ops</div>
+      <div class="kit-tagline">Restaurants · Cafes · Bars · Food service</div>
+      <div class="kit-price">SGD 39 / month · 8 nodes · Download immediately</div>
+    </div>
+    <div class="kit-icon-large">🍳</div>
+  </div>
+  <table class="nodes-table">
+    <thead>
+      <tr>
+        <th width="40">#</th>
+        <th width="30"></th>
+        <th width="160">Node</th>
+        <th>Default checklist items</th>
+        <th width="60">Type</th>
+        <th width="60">Interval</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="nd-num">01</td>
+        <td class="nd-icon">🍳</td>
+        <td class="nd-name">Kitchen Hood</td>
+        <td class="nd-checks">Hood cleaned · Filters checked · Temperature in range · Area clear</td>
+        <td><span class="nd-type nd-sop">SOP</span></td>
+        <td class="nd-interval">4hr</td>
+      </tr><tr>
+        <td class="nd-num">02</td>
+        <td class="nd-icon">🍳</td>
+        <td class="nd-name">Prep Station</td>
+        <td class="nd-checks">Surface sanitised · Equipment clean · Waste cleared · Temperature logged</td>
+        <td><span class="nd-type nd-sop">SOP</span></td>
+        <td class="nd-interval">4hr</td>
+      </tr><tr>
+        <td class="nd-num">03</td>
+        <td class="nd-icon">🍸</td>
+        <td class="nd-name">Bar Station A</td>
+        <td class="nd-checks">Surfaces wiped · Ice restocked · Garnish fresh · Bottles faced</td>
+        <td><span class="nd-type nd-sop">SOP</span></td>
+        <td class="nd-interval">4hr</td>
+      </tr><tr>
+        <td class="nd-num">04</td>
+        <td class="nd-icon">🍸</td>
+        <td class="nd-name">Bar Station B</td>
+        <td class="nd-checks">Surfaces wiped · Ice restocked · Garnish fresh · Bottles faced</td>
+        <td><span class="nd-type nd-sop">SOP</span></td>
+        <td class="nd-interval">4hr</td>
+      </tr><tr>
+        <td class="nd-num">05</td>
+        <td class="nd-icon">🚪</td>
+        <td class="nd-name">Main Entrance</td>
+        <td class="nd-checks">Floor clean · Signage correct · Host station ready</td>
+        <td><span class="nd-type nd-sop">SOP</span></td>
+        <td class="nd-interval">12hr</td>
+      </tr><tr>
+        <td class="nd-num">06</td>
+        <td class="nd-icon">🌿</td>
+        <td class="nd-name">Riverside Terrace A</td>
+        <td class="nd-checks">Area clean · Furniture arranged · Lighting working</td>
+        <td><span class="nd-type nd-sop">SOP</span></td>
+        <td class="nd-interval">8hr</td>
+      </tr><tr>
+        <td class="nd-num">07</td>
+        <td class="nd-icon">🌿</td>
+        <td class="nd-name">Riverside Terrace B</td>
+        <td class="nd-checks">Area clean · Furniture arranged · Lighting working</td>
+        <td><span class="nd-type nd-sop">SOP</span></td>
+        <td class="nd-interval">8hr</td>
+      </tr><tr>
+        <td class="nd-num">08</td>
+        <td class="nd-icon">📦</td>
+        <td class="nd-name">Staff WC / BOH</td>
+        <td class="nd-checks">Inspection type · Result · Inspector name · Notes</td>
+        <td><span class="nd-type nd-comply">COMPLY</span></td>
+        <td class="nd-interval">24hr</td>
+      </tr>
+    </tbody>
+  </table>
+  <a href="mailto:hello@spacenerv.io?subject=SpaceNerv Kit 01 — Hospitality Ops&body=Business name: " class="kit-cta">Join waitlist for Hospitality Ops →</a>
+</div>
+<div class="kit-section">
+  <div class="kit-header">
+    <div class="kit-header-left">
+      <div class="kit-num">Kit 02</div>
+      <div class="kit-name">Hotel Housekeeping</div>
+      <div class="kit-tagline">Hotels · Serviced apartments · Guesthouses</div>
+      <div class="kit-price">SGD 39 / month · 8 nodes · Download immediately</div>
+    </div>
+    <div class="kit-icon-large">🛏</div>
+  </div>
+  <table class="nodes-table">
+    <thead>
+      <tr>
+        <th width="40">#</th>
+        <th width="30"></th>
+        <th width="160">Node</th>
+        <th>Default checklist items</th>
+        <th width="60">Type</th>
+        <th width="60">Interval</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="nd-num">01</td>
+        <td class="nd-icon">🛏</td>
+        <td class="nd-name">Room Status Board</td>
+        <td class="nd-checks">Rooms assigned · Priorities flagged · Supplies stocked</td>
+        <td><span class="nd-type nd-sop">SOP</span></td>
+        <td class="nd-interval">4hr</td>
+      </tr><tr>
+        <td class="nd-num">02</td>
+        <td class="nd-icon">📦</td>
+        <td class="nd-name">Linen Store</td>
+        <td class="nd-checks">Clean linen count · Damaged items logged · Stock sufficient</td>
+        <td><span class="nd-type nd-sop">SOP</span></td>
+        <td class="nd-interval">8hr</td>
+      </tr><tr>
+        <td class="nd-num">03</td>
+        <td class="nd-icon">🧹</td>
+        <td class="nd-name">Cleaning Trolley A</td>
+        <td class="nd-checks">Chemicals stocked · Clean cloths loaded · PPE present</td>
+        <td><span class="nd-type nd-sop">SOP</span></td>
+        <td class="nd-interval">4hr</td>
+      </tr><tr>
+        <td class="nd-num">04</td>
+        <td class="nd-icon">🧹</td>
+        <td class="nd-name">Cleaning Trolley B</td>
+        <td class="nd-checks">Chemicals stocked · Clean cloths loaded · PPE present</td>
+        <td><span class="nd-type nd-sop">SOP</span></td>
+        <td class="nd-interval">4hr</td>
+      </tr><tr>
+        <td class="nd-num">05</td>
+        <td class="nd-icon">🚪</td>
+        <td class="nd-name">Guest Corridor L1</td>
+        <td class="nd-checks">Floor clear · No abandoned items · Emergency exits clear</td>
+        <td><span class="nd-type nd-sop">SOP</span></td>
+        <td class="nd-interval">6hr</td>
+      </tr><tr>
+        <td class="nd-num">06</td>
+        <td class="nd-icon">🚪</td>
+        <td class="nd-name">Guest Corridor L2</td>
+        <td class="nd-checks">Floor clear · No abandoned items · Emergency exits clear</td>
+        <td><span class="nd-type nd-sop">SOP</span></td>
+        <td class="nd-interval">6hr</td>
+      </tr><tr>
+        <td class="nd-num">07</td>
+        <td class="nd-icon">📦</td>
+        <td class="nd-name">Back of House WC</td>
+        <td class="nd-checks">Inspection type · Result · Inspector · Notes</td>
+        <td><span class="nd-type nd-comply">COMPLY</span></td>
+        <td class="nd-interval">12hr</td>
+      </tr><tr>
+        <td class="nd-num">08</td>
+        <td class="nd-icon">🌿</td>
+        <td class="nd-name">Pool / Gym Area</td>
+        <td class="nd-checks">Area clean · Equipment functioning · Safety signage visible</td>
+        <td><span class="nd-type nd-sop">SOP</span></td>
+        <td class="nd-interval">4hr</td>
+      </tr>
+    </tbody>
+  </table>
+  <a href="mailto:hello@spacenerv.io?subject=SpaceNerv Kit 02 — Hotel Housekeeping&body=Business name: " class="kit-cta">Join waitlist for Hotel Housekeeping →</a>
+</div>
+<div class="kit-section">
+  <div class="kit-header">
+    <div class="kit-header-left">
+      <div class="kit-num">Kit 03</div>
+      <div class="kit-name">Retail Ops</div>
+      <div class="kit-tagline">Shops · Boutiques · Showrooms</div>
+      <div class="kit-price">SGD 39 / month · 8 nodes · Download immediately</div>
+    </div>
+    <div class="kit-icon-large">🏪</div>
+  </div>
+  <table class="nodes-table">
+    <thead>
+      <tr>
+        <th width="40">#</th>
+        <th width="30"></th>
+        <th width="160">Node</th>
+        <th>Default checklist items</th>
+        <th width="60">Type</th>
+        <th width="60">Interval</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="nd-num">01</td>
+        <td class="nd-icon">🏪</td>
+        <td class="nd-name">Shop Floor</td>
+        <td class="nd-checks">Floor clean · Displays faced · Lighting on · Music level correct</td>
+        <td><span class="nd-type nd-sop">SOP</span></td>
+        <td class="nd-interval">4hr</td>
+      </tr><tr>
+        <td class="nd-num">02</td>
+        <td class="nd-icon">🪞</td>
+        <td class="nd-name">Fitting Rooms</td>
+        <td class="nd-checks">Rooms clear · Hooks intact · Mirror clean · No abandoned items</td>
+        <td><span class="nd-type nd-sop">SOP</span></td>
+        <td class="nd-interval">2hr</td>
+      </tr><tr>
+        <td class="nd-num">03</td>
+        <td class="nd-icon">💳</td>
+        <td class="nd-name">Cash Desk</td>
+        <td class="nd-checks">Till balanced · Bags stocked · Receipt paper loaded · Area tidy</td>
+        <td><span class="nd-type nd-sop">SOP</span></td>
+        <td class="nd-interval">4hr</td>
+      </tr><tr>
+        <td class="nd-num">04</td>
+        <td class="nd-icon">📦</td>
+        <td class="nd-name">Stockroom</td>
+        <td class="nd-checks">Stock organised · Fire exit clear · Temperature acceptable</td>
+        <td><span class="nd-type nd-sop">SOP</span></td>
+        <td class="nd-interval">8hr</td>
+      </tr><tr>
+        <td class="nd-num">05</td>
+        <td class="nd-icon">🪟</td>
+        <td class="nd-name">Window Display</td>
+        <td class="nd-checks">Display intact · Lighting working · Signage correct</td>
+        <td><span class="nd-type nd-sop">SOP</span></td>
+        <td class="nd-interval">24hr</td>
+      </tr><tr>
+        <td class="nd-num">06</td>
+        <td class="nd-icon">📦</td>
+        <td class="nd-name">Staff Area</td>
+        <td class="nd-checks">Kitchen clean · Locker area tidy · Notice board current</td>
+        <td><span class="nd-type nd-sop">SOP</span></td>
+        <td class="nd-interval">24hr</td>
+      </tr><tr>
+        <td class="nd-num">07</td>
+        <td class="nd-icon">🚪</td>
+        <td class="nd-name">Entrance</td>
+        <td class="nd-checks">Entrance clear · Mats clean · Door functioning</td>
+        <td><span class="nd-type nd-sop">SOP</span></td>
+        <td class="nd-interval">8hr</td>
+      </tr><tr>
+        <td class="nd-num">08</td>
+        <td class="nd-icon">📋</td>
+        <td class="nd-name">Compliance Check</td>
+        <td class="nd-checks">Inspection type · Result · Inspector · Notes</td>
+        <td><span class="nd-type nd-comply">COMPLY</span></td>
+        <td class="nd-interval">24hr</td>
+      </tr>
+    </tbody>
+  </table>
+  <a href="mailto:hello@spacenerv.io?subject=SpaceNerv Kit 03 — Retail Ops&body=Business name: " class="kit-cta">Join waitlist for Retail Ops →</a>
+</div>
+<div class="kit-section">
+  <div class="kit-header">
+    <div class="kit-header-left">
+      <div class="kit-num">Kit 04</div>
+      <div class="kit-name">Corporate Facilities</div>
+      <div class="kit-tagline">Offices · Co-working spaces · Corporate campuses</div>
+      <div class="kit-price">SGD 39 / month · 8 nodes · Download immediately</div>
+    </div>
+    <div class="kit-icon-large">🏢</div>
+  </div>
+  <table class="nodes-table">
+    <thead>
+      <tr>
+        <th width="40">#</th>
+        <th width="30"></th>
+        <th width="160">Node</th>
+        <th>Default checklist items</th>
+        <th width="60">Type</th>
+        <th width="60">Interval</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="nd-num">01</td>
+        <td class="nd-icon">🚪</td>
+        <td class="nd-name">Reception</td>
+        <td class="nd-checks">Desk tidy · Visitors log current · Signage visible · Water refilled</td>
+        <td><span class="nd-type nd-sop">SOP</span></td>
+        <td class="nd-interval">4hr</td>
+      </tr><tr>
+        <td class="nd-num">02</td>
+        <td class="nd-icon">🪑</td>
+        <td class="nd-name">Meeting Room A</td>
+        <td class="nd-checks">AV working · Whiteboard clean · Cables tidy · Water provided</td>
+        <td><span class="nd-type nd-sop">SOP</span></td>
+        <td class="nd-interval">4hr</td>
+      </tr><tr>
+        <td class="nd-num">03</td>
+        <td class="nd-icon">🪑</td>
+        <td class="nd-name">Meeting Room B</td>
+        <td class="nd-checks">AV working · Whiteboard clean · Cables tidy · Water provided</td>
+        <td><span class="nd-type nd-sop">SOP</span></td>
+        <td class="nd-interval">4hr</td>
+      </tr><tr>
+        <td class="nd-num">04</td>
+        <td class="nd-icon">🍳</td>
+        <td class="nd-name">Kitchen / Pantry</td>
+        <td class="nd-checks">Surfaces clean · Dishwasher emptied · Fridge clean · Waste removed</td>
+        <td><span class="nd-type nd-sop">SOP</span></td>
+        <td class="nd-interval">4hr</td>
+      </tr><tr>
+        <td class="nd-num">05</td>
+        <td class="nd-icon">💻</td>
+        <td class="nd-name">Server Room</td>
+        <td class="nd-checks">Temperature normal · No cable issues · Access log · Inspector</td>
+        <td><span class="nd-type nd-comply">COMPLY</span></td>
+        <td class="nd-interval">24hr</td>
+      </tr><tr>
+        <td class="nd-num">06</td>
+        <td class="nd-icon">📋</td>
+        <td class="nd-name">Bathroom L1</td>
+        <td class="nd-checks">Inspection type · Result · Inspector · Notes</td>
+        <td><span class="nd-type nd-comply">COMPLY</span></td>
+        <td class="nd-interval">4hr</td>
+      </tr><tr>
+        <td class="nd-num">07</td>
+        <td class="nd-icon">📋</td>
+        <td class="nd-name">Bathroom L2</td>
+        <td class="nd-checks">Inspection type · Result · Inspector · Notes</td>
+        <td><span class="nd-type nd-comply">COMPLY</span></td>
+        <td class="nd-interval">4hr</td>
+      </tr><tr>
+        <td class="nd-num">08</td>
+        <td class="nd-icon">🔥</td>
+        <td class="nd-name">Fire Exit Check</td>
+        <td class="nd-checks">Exit clear · Signage illuminated · Door functioning · Inspector</td>
+        <td><span class="nd-type nd-comply">COMPLY</span></td>
+        <td class="nd-interval">24hr</td>
+      </tr>
+    </tbody>
+  </table>
+  <a href="mailto:hello@spacenerv.io?subject=SpaceNerv Kit 04 — Corporate Facilities&body=Business name: " class="kit-cta">Join waitlist for Corporate Facilities →</a>
+</div>
+<div class="kit-section">
+  <div class="kit-header">
+    <div class="kit-header-left">
+      <div class="kit-num">Kit 05</div>
+      <div class="kit-name">Healthcare Lite</div>
+      <div class="kit-tagline">Clinics · Dental · Physiotherapy · Wellness</div>
+      <div class="kit-price">SGD 39 / month · 8 nodes · Download immediately</div>
+    </div>
+    <div class="kit-icon-large">🏥</div>
+  </div>
+  <table class="nodes-table">
+    <thead>
+      <tr>
+        <th width="40">#</th>
+        <th width="30"></th>
+        <th width="160">Node</th>
+        <th>Default checklist items</th>
+        <th width="60">Type</th>
+        <th width="60">Interval</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="nd-num">01</td>
+        <td class="nd-icon">🚪</td>
+        <td class="nd-name">Reception</td>
+        <td class="nd-checks">Surfaces sanitised · Floor clean · Hand sanitiser full</td>
+        <td><span class="nd-type nd-sop">SOP</span></td>
+        <td class="nd-interval">4hr</td>
+      </tr><tr>
+        <td class="nd-num">02</td>
+        <td class="nd-icon">🏥</td>
+        <td class="nd-name">Consultation Room 1</td>
+        <td class="nd-checks">Surface disinfection completed · Equipment clean · Waste disposed · Inspector</td>
+        <td><span class="nd-type nd-comply">COMPLY</span></td>
+        <td class="nd-interval">2hr</td>
+      </tr><tr>
+        <td class="nd-num">03</td>
+        <td class="nd-icon">🏥</td>
+        <td class="nd-name">Consultation Room 2</td>
+        <td class="nd-checks">Surface disinfection completed · Equipment clean · Waste disposed · Inspector</td>
+        <td><span class="nd-type nd-comply">COMPLY</span></td>
+        <td class="nd-interval">2hr</td>
+      </tr><tr>
+        <td class="nd-num">04</td>
+        <td class="nd-icon">🏥</td>
+        <td class="nd-name">Treatment Room</td>
+        <td class="nd-checks">Disinfection protocol complete · Equipment sterile · Inspector · Notes</td>
+        <td><span class="nd-type nd-comply">COMPLY</span></td>
+        <td class="nd-interval">2hr</td>
+      </tr><tr>
+        <td class="nd-num">05</td>
+        <td class="nd-icon">🔬</td>
+        <td class="nd-name">Sterile Zone</td>
+        <td class="nd-checks">Access logged · Temperature correct · Supplies within date · Inspector</td>
+        <td><span class="nd-type nd-comply">COMPLY</span></td>
+        <td class="nd-interval">4hr</td>
+      </tr><tr>
+        <td class="nd-num">06</td>
+        <td class="nd-icon">📋</td>
+        <td class="nd-name">Staff WC</td>
+        <td class="nd-checks">Inspection type · Result · Inspector · Notes</td>
+        <td><span class="nd-type nd-comply">COMPLY</span></td>
+        <td class="nd-interval">8hr</td>
+      </tr><tr>
+        <td class="nd-num">07</td>
+        <td class="nd-icon">🪑</td>
+        <td class="nd-name">Waiting Area</td>
+        <td class="nd-checks">Chairs sanitised · Floor clean · Air quality acceptable</td>
+        <td><span class="nd-type nd-sop">SOP</span></td>
+        <td class="nd-interval">2hr</td>
+      </tr><tr>
+        <td class="nd-num">08</td>
+        <td class="nd-icon">🗑</td>
+        <td class="nd-name">Clinical Waste</td>
+        <td class="nd-checks">Waste contained · Labels current · Collection scheduled · Inspector</td>
+        <td><span class="nd-type nd-comply">COMPLY</span></td>
+        <td class="nd-interval">8hr</td>
+      </tr>
+    </tbody>
+  </table>
+  <a href="mailto:hello@spacenerv.io?subject=SpaceNerv Kit 05 — Healthcare Lite&body=Business name: " class="kit-cta">Join waitlist for Healthcare Lite →</a>
+</div>
+<div class="kit-section">
+  <div class="kit-header">
+    <div class="kit-header-left">
+      <div class="kit-num">Kit 06</div>
+      <div class="kit-name">Heritage & Cultural</div>
+      <div class="kit-tagline">Museums · Galleries · Heritage sites · Cultural spaces</div>
+      <div class="kit-price">SGD 39 / month · 8 nodes · Download immediately</div>
+    </div>
+    <div class="kit-icon-large">🏛</div>
+  </div>
+  <table class="nodes-table">
+    <thead>
+      <tr>
+        <th width="40">#</th>
+        <th width="30"></th>
+        <th width="160">Node</th>
+        <th>Default checklist items</th>
+        <th width="60">Type</th>
+        <th width="60">Interval</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="nd-num">01</td>
+        <td class="nd-icon">🖼</td>
+        <td class="nd-name">Main Gallery</td>
+        <td class="nd-checks">Lighting correct · Climate acceptable · Exhibits undisturbed · Floor clean</td>
+        <td><span class="nd-type nd-sop">SOP</span></td>
+        <td class="nd-interval">4hr</td>
+      </tr><tr>
+        <td class="nd-num">02</td>
+        <td class="nd-icon">📚</td>
+        <td class="nd-name">Archive Room</td>
+        <td class="nd-checks">Temperature logged · Humidity logged · Access recorded · Inspector</td>
+        <td><span class="nd-type nd-comply">COMPLY</span></td>
+        <td class="nd-interval">24hr</td>
+      </tr><tr>
+        <td class="nd-num">03</td>
+        <td class="nd-icon">🔬</td>
+        <td class="nd-name">Conservation Area</td>
+        <td class="nd-checks">Temperature in range · No direct light on objects · Door sealed · Inspector</td>
+        <td><span class="nd-type nd-comply">COMPLY</span></td>
+        <td class="nd-interval">8hr</td>
+      </tr><tr>
+        <td class="nd-num">04</td>
+        <td class="nd-icon">📋</td>
+        <td class="nd-name">Public WC</td>
+        <td class="nd-checks">Inspection type · Result · Inspector</td>
+        <td><span class="nd-type nd-comply">COMPLY</span></td>
+        <td class="nd-interval">4hr</td>
+      </tr><tr>
+        <td class="nd-num">05</td>
+        <td class="nd-icon">🏪</td>
+        <td class="nd-name">Shop</td>
+        <td class="nd-checks">Stock displayed · Till ready · Leaflets stocked</td>
+        <td><span class="nd-type nd-sop">SOP</span></td>
+        <td class="nd-interval">4hr</td>
+      </tr><tr>
+        <td class="nd-num">06</td>
+        <td class="nd-icon">🚪</td>
+        <td class="nd-name">Entrance / Ticketing</td>
+        <td class="nd-checks">Queue managed · Tickets loaded · Signage correct</td>
+        <td><span class="nd-type nd-sop">SOP</span></td>
+        <td class="nd-interval">4hr</td>
+      </tr><tr>
+        <td class="nd-num">07</td>
+        <td class="nd-icon">🌿</td>
+        <td class="nd-name">Outdoor / Courtyard</td>
+        <td class="nd-checks">Pathway clear · Lighting working · Seating clean</td>
+        <td><span class="nd-type nd-sop">SOP</span></td>
+        <td class="nd-interval">8hr</td>
+      </tr><tr>
+        <td class="nd-num">08</td>
+        <td class="nd-icon">🔒</td>
+        <td class="nd-name">Security Check</td>
+        <td class="nd-checks">CCTV functioning · Locks checked · Inspector · Notes</td>
+        <td><span class="nd-type nd-comply">COMPLY</span></td>
+        <td class="nd-interval">8hr</td>
+      </tr>
+    </tbody>
+  </table>
+  <a href="mailto:hello@spacenerv.io?subject=SpaceNerv Kit 06 — Heritage & Cultural&body=Business name: " class="kit-cta">Join waitlist for Heritage & Cultural →</a>
+</div>
+<div class="kit-section">
+  <div class="kit-header">
+    <div class="kit-header-left">
+      <div class="kit-num">Kit 07</div>
+      <div class="kit-name">Studio & Maker</div>
+      <div class="kit-tagline">Home workshops · Pottery studios · Maker spaces · Creative practices</div>
+      <div class="kit-price">SGD 39 / month · 8 nodes · Download immediately</div>
+    </div>
+    <div class="kit-icon-large">🔨</div>
+  </div>
+  <table class="nodes-table">
+    <thead>
+      <tr>
+        <th width="40">#</th>
+        <th width="30"></th>
+        <th width="160">Node</th>
+        <th>Default checklist items</th>
+        <th width="60">Type</th>
+        <th width="60">Interval</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="nd-num">01</td>
+        <td class="nd-icon">🔨</td>
+        <td class="nd-name">Main Workbench</td>
+        <td class="nd-checks">Surface clear · Tools returned · Waste removed · Ready for next session</td>
+        <td><span class="nd-type nd-sop">SOP</span></td>
+        <td class="nd-interval">8hr</td>
+      </tr><tr>
+        <td class="nd-num">02</td>
+        <td class="nd-icon">🗄</td>
+        <td class="nd-name">Tool Storage</td>
+        <td class="nd-checks">Tools accounted · Blades secured · Hazardous items stored · Door locked</td>
+        <td><span class="nd-type nd-sop">SOP</span></td>
+        <td class="nd-interval">24hr</td>
+      </tr><tr>
+        <td class="nd-num">03</td>
+        <td class="nd-icon">📦</td>
+        <td class="nd-name">Material Store</td>
+        <td class="nd-checks">Stock organised · Flammables stored correctly · Temperature acceptable</td>
+        <td><span class="nd-type nd-sop">SOP</span></td>
+        <td class="nd-interval">24hr</td>
+      </tr><tr>
+        <td class="nd-num">04</td>
+        <td class="nd-icon">🎨</td>
+        <td class="nd-name">Finishing Area</td>
+        <td class="nd-checks">Ventilation on · PPE present · Waste sealed · Area clean</td>
+        <td><span class="nd-type nd-sop">SOP</span></td>
+        <td class="nd-interval">8hr</td>
+      </tr><tr>
+        <td class="nd-num">05</td>
+        <td class="nd-icon">🚪</td>
+        <td class="nd-name">Entry / Studio Door</td>
+        <td class="nd-checks">Space secured · Lights off · Equipment powered down · Notes for next session</td>
+        <td><span class="nd-type nd-sop">SOP</span></td>
+        <td class="nd-interval">24hr</td>
+      </tr><tr>
+        <td class="nd-num">06</td>
+        <td class="nd-icon">🔥</td>
+        <td class="nd-name">Safety Check</td>
+        <td class="nd-checks">Fire extinguisher accessible · First aid stocked · Exit clear · Inspector</td>
+        <td><span class="nd-type nd-comply">COMPLY</span></td>
+        <td class="nd-interval">24hr</td>
+      </tr><tr>
+        <td class="nd-num">07</td>
+        <td class="nd-icon">🔨</td>
+        <td class="nd-name">Active Project</td>
+        <td class="nd-checks">Project notes updated · Materials covered · Work in progress secured</td>
+        <td><span class="nd-type nd-sop">SOP</span></td>
+        <td class="nd-interval">4hr</td>
+      </tr><tr>
+        <td class="nd-num">08</td>
+        <td class="nd-icon">⚙</td>
+        <td class="nd-name">Equipment Check</td>
+        <td class="nd-checks">Weekly inspection · Blades/bits · Electrical · Inspector · Notes</td>
+        <td><span class="nd-type nd-comply">COMPLY</span></td>
+        <td class="nd-interval">168hr</td>
+      </tr>
+    </tbody>
+  </table>
+  <a href="mailto:hello@spacenerv.io?subject=SpaceNerv Kit 07 — Studio & Maker&body=Business name: " class="kit-cta">Join waitlist for Studio & Maker →</a>
+</div>
+
+<footer>
+  <div class="footer-brand">◈ SPACENERV · DWNTWN Global Pte Ltd · Singapore 068914 · UEN 202608530M</div>
+  <div class="footer-links">
+    <a href="terms.html">Terms</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="mailto:legal@spacenerv.io">legal@spacenerv.io</a>
+  </div>
+</footer>
+</body>
+</html>
