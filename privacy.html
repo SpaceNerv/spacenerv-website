@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — SpaceNerv</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400&family=Syne:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --teal: #00C9A7;
+  --ink: #0F172A;
+  --text: #1E293B;
+  --muted: #64748B;
+  --border: #E2E8F0;
+  --surface: #F8FAFC;
+  --white: #FFFFFF;
+}
+body {
+  background: var(--white);
+  color: var(--text);
+  font-family: 'Syne', sans-serif;
+  font-size: 15px;
+  line-height: 1.8;
+}
+nav {
+  position: sticky;
+  top: 0;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 100;
+}
+.nav-mark {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+.nav-glyph {
+  width: 24px;
+  height: 24px;
+  border: 1.5px solid var(--teal);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.nav-glyph::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: var(--teal);
+  border-radius: 50%;
+}
+.nav-word {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--ink);
+  letter-spacing: 0.15em;
+  font-weight: 500;
+}
+.nav-back {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+}
+.nav-back:hover { color: var(--teal); }
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 60px 32px 100px;
+}
+.doc-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: var(--teal);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.doc-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 44px;
+  font-weight: 300;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 8px;
+}
+.doc-meta {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  margin-bottom: 48px;
+  padding-bottom: 32px;
+  border-bottom: 2px solid var(--teal);
+  letter-spacing: 0.05em;
+}
+.intro {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 19px;
+  font-weight: 300;
+  color: var(--ink);
+  line-height: 1.6;
+  margin-bottom: 48px;
+  font-style: italic;
+}
+h2 {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin: 40px 0 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+p { margin-bottom: 16px; color: var(--text); }
+ul { margin: 0 0 16px 20px; color: var(--text); }
+ul li { margin-bottom: 8px; }
+.highlight {
+  background: var(--surface);
+  border-left: 3px solid var(--teal);
+  padding: 16px 20px;
+  margin: 24px 0;
+  border-radius: 0 4px 4px 0;
+  font-size: 14px;
+  color: var(--muted);
+}
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+  font-size: 13px;
+}
+.data-table th {
+  background: var(--ink);
+  color: rgba(255,255,255,0.7);
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 10px 14px;
+  text-align: left;
+  font-weight: 400;
+}
+.data-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  color: var(--text);
+}
+.data-table tr:last-child td { border-bottom: none; }
+.data-table tr:nth-child(even) td { background: var(--surface); }
+.entity {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 20px 24px;
+  margin: 24px 0;
+  line-height: 2;
+}
+.entity strong { color: var(--teal); display: block; margin-bottom: 4px; font-size: 11px; letter-spacing: 0.1em; }
+footer {
+  margin-top: 80px;
+  padding: 32px 48px;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-brand { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--muted); }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--muted); text-decoration: none; }
+.footer-links a:hover { color: var(--teal); }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-mark">
+    <div class="nav-glyph"></div>
+    <span class="nav-word">SPACENERV</span>
+  </a>
+  <a href="index.html" class="nav-back">← spacenerv.io</a>
+</nav>
+
+<div class="container">
+
+  <div class="doc-label">Legal · Privacy Policy</div>
+  <h1 class="doc-title">Privacy<br>Policy</h1>
+  <div class="doc-meta">
+    Effective date: 6 April 2026 · Version 1.0 · Singapore PDPA · Thailand PDPA · GDPR
+  </div>
+
+  <p class="intro">SpaceNerv is built on a founding principle: data belongs to the people and organisations that generate it. This policy describes what we collect, why, and how we protect it.</p>
+
+  <div class="entity">
+    <strong>Data controller</strong>
+    DWNTWN Global Pte Ltd<br>
+    UEN 202608530M<br>
+    160 Robinson Road #14-04<br>
+    Singapore Business Federation Centre<br>
+    Singapore 068914<br>
+    data@spacenerv.io
+  </div>
+
+  <h2>1. Who this policy covers</h2>
+  <p>This policy applies to three categories of people who interact with SpaceNerv:</p>
+  <ul>
+    <li><strong>Clients</strong> — businesses and individuals who subscribe to the SpaceNerv platform.</li>
+    <li><strong>Operators</strong> — staff members who tap QR codes or NFC nodes as part of their work at a Client's location.</li>
+    <li><strong>Visitors</strong> — people who visit spacenerv.io or interact with SpaceNerv's marketing communications.</li>
+  </ul>
+
+  <h2>2. What data we collect</h2>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Data type</th>
+        <th>What it contains</th>
+        <th>Who it relates to</th>
+        <th>Legal basis</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Tap events</strong></td>
+        <td>Timestamp, node ID, zone, form responses submitted by the Operator</td>
+        <td>Operators</td>
+        <td>Legitimate interests of the Client (operational monitoring)</td>
+      </tr>
+      <tr>
+        <td><strong>Account data</strong></td>
+        <td>Business name, email address, deployment configuration</td>
+        <td>Clients</td>
+        <td>Contract performance</td>
+      </tr>
+      <tr>
+        <td><strong>Device identifiers</strong></td>
+        <td>Activation code stored in browser localStorage on Operator devices</td>
+        <td>Operators</td>
+        <td>Legitimate interests (authentication)</td>
+      </tr>
+      <tr>
+        <td><strong>Website analytics</strong></td>
+        <td>Page visits, referral source, browser type via Netlify Analytics</td>
+        <td>Visitors</td>
+        <td>Legitimate interests (improving the service)</td>
+      </tr>
+      <tr>
+        <td><strong>Payment data</strong></td>
+        <td>Processed by Stripe. SpaceNerv does not store card numbers.</td>
+        <td>Clients</td>
+        <td>Contract performance</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>3. What we do not collect</h2>
+  <p>SpaceNerv does not collect:</p>
+  <ul>
+    <li>Names of individual Operators — tap events are not linked to named individuals.</li>
+    <li>Location data beyond the node identifier — we know which node was tapped, not where the Operator physically was beyond that node's location.</li>
+    <li>Biometric data of any kind.</li>
+    <li>Data from children — the Platform is not directed at persons under 18.</li>
+    <li>Sensitive personal data as defined under Singapore PDPA or Thailand PDPA.</li>
+  </ul>
+
+  <h2>4. How we use data</h2>
+  <p>Tap event data is used exclusively to:</p>
+  <ul>
+    <li>Display the node health grid and tap event feed on the Client's dashboard.</li>
+    <li>Compute the Spatial Baseline Engine — learning each node's expected operational rhythm.</li>
+    <li>Generate anomaly scores and trigger LINE Notify alerts when nodes are overdue.</li>
+    <li>Produce operational analytics for the Client's own review.</li>
+  </ul>
+  <p>Anonymised and aggregated data across all Deployments is used to improve the Platform and generate industry-level spatial intelligence benchmarks. No individual Client's data is identifiable in these aggregates.</p>
+
+  <h2>5. Data storage and security</h2>
+  <p>All data is stored in Supabase PostgreSQL databases hosted in the Singapore region (ap-southeast-1). A Data Processing Agreement is in place with Supabase Inc.</p>
+  <p>Data is protected by:</p>
+  <ul>
+    <li>Row Level Security — each Client can only access their own Deployment's data.</li>
+    <li>TLS encryption in transit on all connections.</li>
+    <li>Supabase-managed encryption at rest.</li>
+    <li>Access controls limiting SpaceNerv staff access to operational necessity only.</li>
+  </ul>
+
+  <h2>6. Data retention</h2>
+  <p>Tap event data is retained in three tiers:</p>
+  <ul>
+    <li><strong>Tier 1 — Hot (0–24 months):</strong> Full individual tap event records, accessible on the dashboard.</li>
+    <li><strong>Tier 2 — Warm (24 months–7 years):</strong> Anonymised records. Individual Operator identifiers removed. Retained for operational trend analysis.</li>
+    <li><strong>Tier 3 — Cold (7 years+):</strong> Aggregate models only. No individual records retained.</li>
+  </ul>
+  <p>Account data is retained for the duration of the subscription plus 12 months. Payment records are retained for 7 years as required by Singapore accounting law.</p>
+
+  <h2>7. Data sharing</h2>
+  <p>SpaceNerv does not sell personal data. Data is shared only with:</p>
+  <ul>
+    <li><strong>Supabase Inc.</strong> — database hosting and infrastructure. DPA in place.</li>
+    <li><strong>Stripe Inc.</strong> — payment processing. Stripe's privacy policy applies to payment data.</li>
+    <li><strong>LINE Corporation</strong> — anomaly alert delivery via LINE Notify API. Only the alert message content is transmitted, not raw tap event data.</li>
+    <li><strong>Netlify Inc.</strong> — website hosting and analytics.</li>
+  </ul>
+  <p>All sub-processors are required to maintain data protection standards consistent with this policy.</p>
+
+  <h2>8. Your rights</h2>
+  <p>Clients and Operators have the following rights under Singapore PDPA, Thailand PDPA, and where applicable GDPR:</p>
+  <ul>
+    <li><strong>Access:</strong> Request a copy of data held about you or your Deployment.</li>
+    <li><strong>Correction:</strong> Request correction of inaccurate data.</li>
+    <li><strong>Deletion:</strong> Request deletion of your data subject to legal retention requirements.</li>
+    <li><strong>Portability:</strong> Request an export of your Tap Event data in a machine-readable format.</li>
+    <li><strong>Objection:</strong> Object to processing based on legitimate interests.</li>
+    <li><strong>Withdrawal:</strong> Withdraw consent where processing is consent-based.</li>
+  </ul>
+  <p>To exercise any of these rights, contact data@spacenerv.io. Requests will be acknowledged within 3 business days and fulfilled within 30 days.</p>
+
+  <h2>9. Operator notice — information for staff</h2>
+  <div class="highlight">
+    If you are a staff member using SpaceNerv at your workplace: when you scan a QR code or tap an NFC chip and submit a form, a record is created showing which node was tapped, when, and the form responses you submitted. This record is visible to your employer's designated supervisor on the SpaceNerv dashboard. Your individual name is not stored by SpaceNerv unless your employer has configured the comply form to include an inspector name field. For questions about how your data is used, contact your employer or email data@spacenerv.io.
+  </div>
+  <p style="font-size:13px;color:var(--muted);">หากคุณเป็นพนักงานที่ใช้ SpaceNerv ในที่ทำงาน: เมื่อคุณสแกน QR โค้ดหรือแตะชิป NFC และส่งฟอร์ม ระบบจะบันทึกว่าโหนดใดถูกแตะ เมื่อไหร่ และคำตอบในฟอร์ม บันทึกนี้จะปรากฏให้หัวหน้างานที่นายจ้างกำหนดเห็นบนแดชบอร์ด SpaceNerv ชื่อส่วนตัวของคุณไม่ถูกจัดเก็บโดย SpaceNerv</p>
+
+  <h2>10. Cookies and local storage</h2>
+  <p>The SpaceNerv tap form uses browser localStorage to store your Deployment activation code on your device. This is not a cookie and is not transmitted to any server. It persists until you clear your browser data or the code is rotated by your employer.</p>
+  <p>spacenerv.io uses Netlify Analytics which collects anonymised page view data without cookies or personal identifiers.</p>
+
+  <h2>11. International transfers</h2>
+  <p>Data is stored in Singapore. Where data is processed by sub-processors in other jurisdictions (Stripe in the United States, LINE Corporation in Japan), appropriate safeguards including data processing agreements and standard contractual clauses are in place.</p>
+
+  <h2>12. Changes to this policy</h2>
+  <p>This policy may be updated from time to time. Material changes will be communicated to registered Client email addresses with at least 30 days notice. The current version is always available at spacenerv.io/privacy.</p>
+
+  <h2>13. Contact</h2>
+  <div class="highlight">
+    Data protection enquiries: data@spacenerv.io<br>
+    Legal correspondence: legal@spacenerv.io<br>
+    DWNTWN Global Pte Ltd · 160 Robinson Road #14-04 · Singapore 068914
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-brand">◈ SPACENERV · DWNTWN Global Pte Ltd · Singapore 068914 · UEN 202608530M</div>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="terms.html">Terms of Service</a>
+  </div>
+</footer>
+
+</body>
+</html>

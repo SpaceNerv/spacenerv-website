@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms of Service — SpaceNerv</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400&family=Syne:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --teal: #00C9A7;
+  --ink: #0F172A;
+  --text: #1E293B;
+  --muted: #64748B;
+  --border: #E2E8F0;
+  --surface: #F8FAFC;
+  --white: #FFFFFF;
+}
+body {
+  background: var(--white);
+  color: var(--text);
+  font-family: 'Syne', sans-serif;
+  font-size: 15px;
+  line-height: 1.8;
+}
+nav {
+  position: sticky;
+  top: 0;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 100;
+}
+.nav-mark {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+.nav-glyph {
+  width: 24px;
+  height: 24px;
+  border: 1.5px solid var(--teal);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.nav-glyph::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: var(--teal);
+  border-radius: 50%;
+}
+.nav-word {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--ink);
+  letter-spacing: 0.15em;
+  font-weight: 500;
+}
+.nav-back {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+}
+.nav-back:hover { color: var(--teal); }
+
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 60px 32px 100px;
+}
+
+.doc-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: var(--teal);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.doc-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 44px;
+  font-weight: 300;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 8px;
+}
+
+.doc-meta {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  margin-bottom: 48px;
+  padding-bottom: 32px;
+  border-bottom: 2px solid var(--teal);
+  letter-spacing: 0.05em;
+}
+
+.intro {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 19px;
+  font-weight: 300;
+  color: var(--ink);
+  line-height: 1.6;
+  margin-bottom: 48px;
+  font-style: italic;
+}
+
+h2 {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin: 40px 0 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+p {
+  margin-bottom: 16px;
+  color: var(--text);
+}
+
+ul {
+  margin: 0 0 16px 20px;
+  color: var(--text);
+}
+
+ul li {
+  margin-bottom: 8px;
+}
+
+.highlight {
+  background: var(--surface);
+  border-left: 3px solid var(--teal);
+  padding: 16px 20px;
+  margin: 24px 0;
+  border-radius: 0 4px 4px 0;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.entity {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 20px 24px;
+  margin: 24px 0;
+  line-height: 2;
+}
+
+.entity strong { color: var(--ink); display: block; margin-bottom: 4px; font-size: 11px; letter-spacing: 0.1em; color: var(--teal); }
+
+footer {
+  margin-top: 80px;
+  padding: 32px 48px;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-brand { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--muted); }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--muted); text-decoration: none; }
+.footer-links a:hover { color: var(--teal); }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-mark">
+    <div class="nav-glyph"></div>
+    <span class="nav-word">SPACENERV</span>
+  </a>
+  <a href="index.html" class="nav-back">← spacenerv.io</a>
+</nav>
+
+<div class="container">
+
+  <div class="doc-label">Legal · Terms of Service</div>
+  <h1 class="doc-title">Terms of<br>Service</h1>
+  <div class="doc-meta">
+    Effective date: 6 April 2026 · Version 1.0 · Governed by Singapore law
+  </div>
+
+  <p class="intro">These terms govern your access to and use of the SpaceNerv platform. By accessing or using SpaceNerv, you agree to be bound by these terms.</p>
+
+  <div class="entity">
+    <strong>Service provider</strong>
+    DWNTWN Global Pte Ltd<br>
+    UEN 202608530M<br>
+    160 Robinson Road #14-04<br>
+    Singapore Business Federation Centre<br>
+    Singapore 068914<br>
+    legal@spacenerv.io
+  </div>
+
+  <h2>1. Definitions</h2>
+  <p><strong>Platform</strong> means the SpaceNerv spatial intelligence platform, including the web application accessible at spacenerv.link, the dashboard at app.spacenerv.io, and all associated services.</p>
+  <p><strong>Deployment</strong> means a configured instance of the Platform installed at a specific physical location operated by a Client.</p>
+  <p><strong>Client</strong> means the legal entity that has subscribed to the Platform under a paid plan.</p>
+  <p><strong>Operator</strong> means any individual who interacts with the Platform by tapping a QR code or NFC node at a Deployment location.</p>
+  <p><strong>Tap Event</strong> means the authenticated digital record created when an Operator scans a QR code or taps an NFC node.</p>
+  <p><strong>Node</strong> means a physical QR code label or NFC chip installed at a Deployment location as part of the Platform.</p>
+
+  <h2>2. The Service</h2>
+  <p>SpaceNerv provides a spatial intelligence platform that enables Clients to monitor operational activity at physical locations through passive QR code and NFC-based tap events. The Platform includes a real-time dashboard, node health monitoring, anomaly detection, and configurable operational forms.</p>
+  <p>The Platform is provided as a software-as-a-service subscription. Access is granted on a per-Deployment basis. Each subscription includes up to the number of Nodes specified in the chosen plan.</p>
+
+  <h2>3. Subscriptions and payment</h2>
+  <p>Subscriptions are billed monthly in advance. The current pricing is published at spacenerv.io and may be updated with 30 days written notice to the Client's registered email address.</p>
+  <p>Payment is due within 14 days of invoice date. Late payment beyond 30 days may result in suspension of dashboard access. All Tap Event data is retained during suspension and restored upon payment.</p>
+  <p>All fees are exclusive of applicable taxes. Clients in Singapore are responsible for GST where applicable. Clients outside Singapore are responsible for any applicable local taxes.</p>
+  <p>Subscriptions renew automatically unless cancelled in writing to accounts@spacenerv.io at least 7 days before the renewal date.</p>
+
+  <h2>4. Client obligations</h2>
+  <p>The Client is responsible for:</p>
+  <ul>
+    <li>Informing all Operators that their tap events are recorded by the Platform, in compliance with applicable data protection laws including the Thailand Personal Data Protection Act where applicable.</li>
+    <li>Maintaining the physical integrity of installed Nodes. Damaged or missing Nodes must be reported promptly.</li>
+    <li>Keeping dashboard login credentials secure and not sharing them with unauthorised persons.</li>
+    <li>Using the Platform only for lawful operational monitoring purposes.</li>
+    <li>Ensuring that the activation code for each Deployment is kept confidential and shared only with authorised Operators.</li>
+  </ul>
+
+  <h2>5. Prohibited uses</h2>
+  <p>The Client must not use the Platform to:</p>
+  <ul>
+    <li>Monitor individuals without their knowledge or consent.</li>
+    <li>Collect data for purposes other than operational management of the Deployment location.</li>
+    <li>Attempt to access other Clients' data or Deployments.</li>
+    <li>Submit false or misleading tap events.</li>
+    <li>Reverse engineer, decompile, or attempt to extract the source code of the Platform.</li>
+    <li>Resell, sublicense, or otherwise commercialise access to the Platform without written permission.</li>
+  </ul>
+
+  <h2>6. Data ownership</h2>
+  <p>The Client owns all Tap Event data generated by their Deployment. DWNTWN Global Pte Ltd does not sell, transfer, or share individual Client data with third parties except as described in the Privacy Policy.</p>
+  <p>DWNTWN Global Pte Ltd retains the right to use anonymised and aggregated data derived from all Deployments to improve the Platform, generate industry benchmarks, and develop the Spatial Baseline Engine.</p>
+  <p>Upon termination of the subscription, the Client may request a full export of their Tap Event data within 30 days of termination. After 30 days, data may be anonymised and retained only in aggregate form.</p>
+
+  <h2>7. Intellectual property</h2>
+  <p>The Platform, including all software, algorithms, designs, trademarks, and documentation, is the intellectual property of DWNTWN Global Pte Ltd and is protected by applicable intellectual property laws including nine provisional patents filed with the Intellectual Property Office of Singapore.</p>
+  <p>These Terms grant the Client a non-exclusive, non-transferable, revocable licence to use the Platform for the duration of their subscription. No other rights are granted.</p>
+
+  <h2>8. Service availability</h2>
+  <p>DWNTWN Global Pte Ltd will use reasonable efforts to maintain Platform availability. Planned maintenance will be communicated in advance where possible. The Platform is provided on an as-is basis and no uptime guarantee is provided at this stage of service.</p>
+  <p>Tap Events submitted while the Platform is offline are queued locally on the Operator's device and submitted automatically when connectivity is restored. Timestamps are preserved from the original submission time.</p>
+
+  <h2>9. Limitation of liability</h2>
+  <p>To the maximum extent permitted by Singapore law, DWNTWN Global Pte Ltd's total liability to the Client for any claim arising from these Terms or the use of the Platform shall not exceed the total fees paid by the Client in the three months preceding the claim.</p>
+  <p>DWNTWN Global Pte Ltd is not liable for any indirect, consequential, incidental, or special damages, including loss of profit, loss of data, or operational losses arising from use or inability to use the Platform.</p>
+
+  <h2>10. Termination</h2>
+  <p>Either party may terminate the subscription with 30 days written notice. DWNTWN Global Pte Ltd may terminate immediately if the Client materially breaches these Terms and fails to remedy the breach within 7 days of written notice.</p>
+  <p>Upon termination, dashboard access ceases at the end of the paid period. Tap Event data is retained for 30 days post-termination to allow export, then anonymised.</p>
+
+  <h2>11. Governing law and disputes</h2>
+  <p>These Terms are governed by the laws of Singapore. Any dispute arising from these Terms shall be subject to the exclusive jurisdiction of the Singapore courts. The parties agree to attempt to resolve disputes through good-faith negotiation before initiating formal proceedings.</p>
+
+  <h2>12. Changes to these terms</h2>
+  <p>DWNTWN Global Pte Ltd may update these Terms from time to time. Material changes will be communicated to the Client's registered email address with at least 30 days notice. Continued use of the Platform after the effective date of changes constitutes acceptance of the updated Terms.</p>
+
+  <h2>13. Contact</h2>
+  <div class="highlight">
+    For questions about these Terms, contact legal@spacenerv.io or write to DWNTWN Global Pte Ltd, 160 Robinson Road #14-04, Singapore Business Federation Centre, Singapore 068914.
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-brand">◈ SPACENERV · DWNTWN Global Pte Ltd · Singapore 068914 · UEN 202608530M</div>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="terms.html">Terms of Service</a>
+  </div>
+</footer>
+
+</body>
+</html>
