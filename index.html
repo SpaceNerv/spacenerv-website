@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SpaceNerv — Spatial Intelligence for the Built Environment</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="apple-touch-icon" href="apple-touch-icon.svg">
+<meta name="theme-color" content="#0F172A">
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;500;700;800&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -1280,15 +1283,16 @@ footer {
         <span style="color:var(--muted);font-size:9px">QR · instant</span>
       </div>
     </div>
-  </div>
-
-  <!-- Personal tier note -->
-  <div style="margin-top:40px;padding:24px 32px;border:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;">
-    <div>
-      <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--teal);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:6px;">Personal · Studio · Maker</div>
-      <div style="font-size:13px;color:var(--muted);line-height:1.6;">Running a personal studio, home workshop, or maker space? Ask about our personal tier — 3 nodes, ฿299/month.</div>
+    <div class="kit-card">
+      <span class="kit-icon">🔨</span>
+      <div class="kit-name">Studio & Maker</div>
+      <div class="kit-tagline">Your creative practice, intelligently attended.</div>
+      <div class="kit-nodes">8 nodes · Workbench · Tool Store · Materials · Safety · Project</div>
+      <div class="kit-price">
+        <span>฿990 / month</span>
+        <span style="color:var(--muted);font-size:9px">QR · instant</span>
+      </div>
     </div>
-    <a href="mailto:hello@spacenerv.io" style="font-family:'DM Mono',monospace;font-size:10px;color:var(--teal);text-decoration:none;border:1px solid var(--border-teal);padding:10px 20px;white-space:nowrap;letter-spacing:0.08em;flex-shrink:0;margin-left:40px;transition:background 0.2s;" onmouseover="this.style.background='rgba(0,201,167,0.08)'" onmouseout="this.style.background='transparent'">hello@spacenerv.io →</a>
   </div>
 
 </section>
@@ -1304,16 +1308,39 @@ footer {
       "The darkness was always full. Every room, every corridor, every surface has been accumulating operational intelligence since the first human being entered it. We simply lacked the instrument to listen."
     </div>
     <div class="charta-attr">Article I · The Origin — Florian Gypser, Founder · DWNTWN Global Pte Ltd · Singapore</div>
+    <div style="margin-top:24px;">
+      <a href="#" style="font-family:'DM Mono',monospace;font-size:10px;color:var(--teal);text-decoration:none;letter-spacing:0.1em;border-bottom:1px solid rgba(0,201,167,0.3);padding-bottom:2px;">Read the full Charta →</a>
+    </div>
+  </div>
+</section>
+
+<!-- BRN DEPLOYMENT -->
+<section style="padding:80px 48px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div style="display:grid;grid-template-columns:240px 1fr;gap:80px;align-items:start;">
+    <div>
+      <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--teal);letter-spacing:0.25em;text-transform:uppercase;margin-bottom:16px;">First deployment</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:var(--white);line-height:1.2;">BRN Taladnoi<br><span style="color:var(--muted);font-size:24px;">Bangkok</span></div>
+    </div>
+    <div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:var(--text);line-height:1.6;margin-bottom:24px;font-style:italic;">A riverside restaurant in Bangkok's Chinatown heritage district. Eight NFC nodes across five operational zones. The building learning to attend to itself.</div>
+      <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);line-height:2;margin-bottom:32px;">
+        8 nodes · Kitchen · Bar · Entrance · Riverside Terrace · Back of House<br>
+        Live since April 2026 · Case study publishing Q3 2026
+      </div>
+      <div style="display:inline-flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:9px;color:var(--teal);letter-spacing:0.15em;text-transform:uppercase;border:1px solid var(--border-teal);padding:10px 20px;">
+        <div style="width:5px;height:5px;background:var(--teal);border-radius:50%;animation:pulse 1.5s ease-in-out infinite;"></div>
+        System live · Data flowing
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- PRICING -->
 <section class="pricing">
   <div class="pricing-label">Pricing</div>
-  <h2 class="pricing-title">Start immediately.<br>No hardware required.</h2>
+  <h2 class="pricing-title">Launching 2026.<br>Join the waitlist.</h2>
   <div class="pricing-cards">
     <div class="pricing-card featured">
-      <div class="pricing-badge">Most popular</div>
       <div class="pricing-tier">SpaceNerv QR</div>
       <div class="pricing-amount">฿990</div>
       <div class="pricing-period">per month · up to 8 nodes</div>
@@ -1326,7 +1353,7 @@ footer {
         <li>Form schema editor — your checklists</li>
         <li>Upgrade to NFC at any time</li>
       </ul>
-      <a href="#" class="pricing-cta primary">Get your QR kit</a>
+      <a href="/cdn-cgi/l/email-protection#1b737e7777745b686b7a787e757e696d35727424686e79717e786f26486b7a787e557e696d3b4a493b50726f3bf99b8f3b4c7a726f7772686f" class="pricing-cta primary">Join the waitlist</a>
     </div>
     <div class="pricing-card">
       <div class="pricing-tier">SpaceNerv NFC</div>
@@ -1341,7 +1368,7 @@ footer {
         <li>QR fallback always included</li>
         <li>Ships within 48 hours</li>
       </ul>
-      <a href="#" class="pricing-cta secondary">Contact for NFC</a>
+      <a href="/cdn-cgi/l/email-protection#b6ded3dadad9f6c5c6d7d5d3d8d3c4c098dfd989c5c3d4dcd3d5c28be5c6d7d5d3f8d3c4c096f8f0f596fddfc29654362296ffd8c2d3c4d3c5c2" class="pricing-cta secondary">Express interest</a>
     </div>
   </div>
 </section>
@@ -1365,13 +1392,4 @@ footer {
       <li><a href="#">Concept</a></li>
       <li><a href="#">The Charta</a></li>
       <li><a href="#">BRN Taladnoi — First Deployment</a></li>
-      <li><a href="#">Kits</a></li>
-      <li><a href="#">Dashboard Login</a></li>
-    </ul>
-  </div>
-  <div>
-    <div class="footer-col-title">Legal</div>
-    <ul class="footer-links">
-      <li><a href="#">Terms of Service</a></li>
-      <li><a href="#">Privacy Policy</a></li>
-      <li><a hre
+    
