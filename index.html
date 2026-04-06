@@ -1,0 +1,1377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SpaceNerv — Spatial Intelligence for the Built Environment</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --teal: #00C9A7;
+  --teal-dim: rgba(0,201,167,0.08);
+  --teal-glow: rgba(0,201,167,0.15);
+  --ink: #060708;
+  --ink2: #0C0E10;
+  --surface: #111418;
+  --panel: #161B21;
+  --border: rgba(255,255,255,0.06);
+  --border-teal: rgba(0,201,167,0.2);
+  --text: #E2E8F0;
+  --muted: #64748B;
+  --faint: #334155;
+  --white: #F8FAFC;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--ink);
+  color: var(--text);
+  font-family: 'Syne', sans-serif;
+  overflow-x: hidden;
+  cursor: crosshair;
+}
+
+/* ── NOISE TEXTURE ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0.4;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 20px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+  background: rgba(6,7,8,0.85);
+  backdrop-filter: blur(20px);
+}
+
+.nav-mark {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-glyph {
+  width: 28px;
+  height: 28px;
+  border: 1.5px solid var(--teal);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.nav-glyph::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: var(--teal);
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.7); }
+}
+
+.nav-name {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  color: var(--white);
+  letter-spacing: 0.1em;
+  font-weight: 500;
+}
+
+.nav-links {
+  display: flex;
+  gap: 40px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--teal); }
+
+.nav-cta {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--ink);
+  background: var(--teal);
+  padding: 9px 20px;
+  border-radius: 2px;
+  text-decoration: none;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 500;
+  transition: opacity 0.2s;
+}
+
+.nav-cta:hover { opacity: 0.85; }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: 120px 48px 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Grid lines */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,201,167,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,201,167,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+}
+
+.hero-left {
+  max-width: 560px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--teal);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hero-eyebrow::before {
+  content: '';
+  width: 32px;
+  height: 1px;
+  background: var(--teal);
+}
+
+.hero-headline {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 72px;
+  font-weight: 300;
+  line-height: 1.0;
+  color: var(--white);
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+}
+
+.hero-headline em {
+  font-style: italic;
+  color: var(--teal);
+}
+
+.hero-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 72px;
+  font-weight: 300;
+  line-height: 1.0;
+  color: var(--muted);
+  margin-bottom: 40px;
+  letter-spacing: -0.02em;
+}
+
+.hero-body {
+  font-family: 'Syne', sans-serif;
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.8;
+  max-width: 420px;
+  margin-bottom: 48px;
+  font-weight: 400;
+}
+
+.hero-body strong {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.btn-primary {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--ink);
+  background: var(--teal);
+  padding: 14px 28px;
+  border-radius: 2px;
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 500;
+  transition: opacity 0.2s;
+}
+
+.btn-primary:hover { opacity: 0.85; }
+
+.btn-ghost {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.2s;
+}
+
+.btn-ghost:hover { color: var(--teal); }
+.btn-ghost::after { content: '→'; }
+
+/* ── HERO RIGHT — VISUALISATION ── */
+.hero-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.vis-container {
+  width: 480px;
+  height: 480px;
+  position: relative;
+}
+
+/* Orbital rings */
+.orbit {
+  position: absolute;
+  border: 1px solid rgba(0,201,167,0.1);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.orbit-1 { width: 120px; height: 120px; border-color: rgba(0,201,167,0.3); }
+.orbit-2 { width: 240px; height: 240px; animation: rotate 20s linear infinite; }
+.orbit-3 { width: 360px; height: 360px; animation: rotate 35s linear infinite reverse; }
+.orbit-4 { width: 460px; height: 460px; border-style: dashed; }
+
+@keyframes rotate {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Centre node */
+.centre-node {
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  background: var(--teal);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 40px rgba(0,201,167,0.4);
+}
+
+.centre-node::before {
+  content: '◈';
+  color: var(--ink);
+  font-size: 20px;
+}
+
+/* Satellite nodes */
+.sat-node {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: var(--teal);
+  border-radius: 50%;
+  box-shadow: 0 0 12px rgba(0,201,167,0.6);
+}
+
+.sat-node.dim {
+  background: var(--faint);
+  box-shadow: none;
+  width: 8px;
+  height: 8px;
+}
+
+.sat-node.amber {
+  background: #F5A623;
+  box-shadow: 0 0 12px rgba(245,166,35,0.5);
+}
+
+/* Node labels */
+.node-label {
+  position: absolute;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: var(--teal);
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+}
+
+.node-label.dim { color: var(--muted); }
+.node-label.amber { color: #F5A623; }
+
+/* Connection lines */
+.connect-line {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(0,201,167,0.4), transparent);
+  transform-origin: left center;
+}
+
+/* Live indicator */
+.live-badge {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: var(--teal);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.live-dot {
+  width: 5px;
+  height: 5px;
+  background: var(--teal);
+  border-radius: 50%;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Tap event stream */
+.tap-stream {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.tap-event {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  padding: 4px 8px;
+  border: 1px solid var(--border-teal);
+  border-radius: 2px;
+  background: var(--teal-dim);
+  color: var(--teal);
+  white-space: nowrap;
+  opacity: 0;
+  animation: tapReveal 0.4s ease forwards;
+}
+
+.tap-event:nth-child(1) { animation-delay: 0.2s; }
+.tap-event:nth-child(2) { animation-delay: 0.8s; opacity: 0.7; }
+.tap-event:nth-child(3) { animation-delay: 1.4s; opacity: 0.4; }
+.tap-event:nth-child(4) { animation-delay: 2.0s; opacity: 0.2; }
+
+@keyframes tapReveal {
+  from { opacity: 0; transform: translateX(8px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* ── DIVIDER ── */
+.divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border-teal), transparent);
+  margin: 0 48px;
+  width: calc(100% - 96px);
+}
+
+/* ── WHAT IT IS ── */
+.what {
+  padding: 120px 48px;
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: var(--teal);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  padding-top: 6px;
+  position: sticky;
+  top: 100px;
+}
+
+.what-content {}
+
+.what-statement {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 48px;
+  font-weight: 300;
+  line-height: 1.15;
+  color: var(--white);
+  margin-bottom: 40px;
+  letter-spacing: -0.01em;
+}
+
+.what-statement em {
+  font-style: italic;
+  color: var(--teal);
+}
+
+.what-body {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.9;
+  max-width: 560px;
+  font-weight: 400;
+  margin-bottom: 60px;
+}
+
+.what-body strong { color: var(--text); font-weight: 500; }
+
+/* Three principles */
+.principles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+
+.principle {
+  background: var(--ink2);
+  padding: 32px 28px;
+}
+
+.principle-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: var(--teal);
+  letter-spacing: 0.2em;
+  margin-bottom: 16px;
+}
+
+.principle-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--white);
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+
+.principle-body {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.7;
+  font-weight: 400;
+}
+
+/* ── HOW IT WORKS ── */
+.how {
+  padding: 120px 48px;
+  background: var(--ink2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.how-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: var(--teal);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  margin-bottom: 60px;
+}
+
+.how-steps {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  position: relative;
+}
+
+/* Connecting line */
+.how-steps::before {
+  content: '';
+  position: absolute;
+  top: 28px;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, var(--teal), rgba(0,201,167,0.2));
+}
+
+.how-step {
+  padding: 0 24px;
+  position: relative;
+}
+
+.step-num {
+  width: 56px;
+  height: 56px;
+  border: 1px solid var(--border-teal);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--teal);
+  margin-bottom: 24px;
+  background: var(--ink);
+  position: relative;
+  z-index: 1;
+}
+
+.how-step:first-child .step-num {
+  background: var(--teal);
+  color: var(--ink);
+  border-color: var(--teal);
+  box-shadow: 0 0 20px rgba(0,201,167,0.3);
+}
+
+.step-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+
+.step-body {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* ── KITS ── */
+.kits {
+  padding: 120px 48px;
+}
+
+.kits-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 60px;
+}
+
+.kits-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 48px;
+  font-weight: 300;
+  color: var(--white);
+  letter-spacing: -0.01em;
+}
+
+.kits-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+}
+
+.kit-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+}
+
+.kit-card {
+  background: var(--ink2);
+  padding: 36px 32px;
+  border: 1px solid transparent;
+  transition: border-color 0.3s, background 0.3s;
+  cursor: pointer;
+}
+
+.kit-card:hover {
+  border-color: var(--border-teal);
+  background: var(--teal-dim);
+}
+
+.kit-icon {
+  font-size: 24px;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.kit-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 6px;
+  letter-spacing: -0.01em;
+}
+
+.kit-tagline {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.kit-nodes {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--faint);
+  letter-spacing: 0.05em;
+}
+
+.kit-price {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--teal);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ── CHARTA QUOTE ── */
+.charta {
+  padding: 120px 48px;
+  background: var(--ink2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.charta-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: var(--teal);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.charta-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px;
+  font-weight: 300;
+  color: var(--white);
+  line-height: 1.3;
+}
+
+.charta-quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--text);
+  line-height: 1.5;
+  padding-left: 40px;
+  border-left: 2px solid var(--teal);
+}
+
+.charta-attr {
+  margin-top: 24px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+}
+
+/* ── PRICING ── */
+.pricing {
+  padding: 120px 48px;
+}
+
+.pricing-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: var(--teal);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.pricing-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 48px;
+  font-weight: 300;
+  color: var(--white);
+  margin-bottom: 60px;
+  letter-spacing: -0.01em;
+}
+
+.pricing-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  max-width: 800px;
+}
+
+.pricing-card {
+  padding: 48px 40px;
+  border: 1px solid var(--border);
+  background: var(--ink2);
+  position: relative;
+}
+
+.pricing-card.featured {
+  border-color: var(--border-teal);
+  background: linear-gradient(135deg, rgba(0,201,167,0.05), var(--ink2));
+}
+
+.pricing-badge {
+  position: absolute;
+  top: -1px;
+  left: 40px;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  background: var(--teal);
+  color: var(--ink);
+  padding: 4px 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.pricing-tier {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--teal);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.pricing-amount {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 56px;
+  font-weight: 300;
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.pricing-period {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 32px;
+  letter-spacing: 0.05em;
+}
+
+.pricing-features {
+  list-style: none;
+  margin-bottom: 36px;
+}
+
+.pricing-features li {
+  font-size: 13px;
+  color: var(--muted);
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pricing-features li::before {
+  content: '◈';
+  color: var(--teal);
+  font-size: 8px;
+  flex-shrink: 0;
+}
+
+.pricing-cta {
+  display: block;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  text-align: center;
+  padding: 14px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.pricing-cta.primary {
+  background: var(--teal);
+  color: var(--ink);
+}
+
+.pricing-cta.secondary {
+  border: 1px solid var(--border-teal);
+  color: var(--teal);
+}
+
+.pricing-cta:hover { opacity: 0.8; }
+
+/* ── FOOTER ── */
+footer {
+  padding: 60px 48px;
+  border-top: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.footer-brand {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--white);
+  margin-bottom: 8px;
+  letter-spacing: 0.1em;
+}
+
+.footer-legal {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.footer-col-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: var(--teal);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.footer-links {
+  list-style: none;
+}
+
+.footer-links li {
+  margin-bottom: 8px;
+}
+
+.footer-links a {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover { color: var(--teal); }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-eyebrow { animation: fadeUp 0.6s ease forwards; animation-delay: 0.1s; opacity: 0; }
+.hero-headline { animation: fadeUp 0.6s ease forwards; animation-delay: 0.2s; opacity: 0; }
+.hero-sub { animation: fadeUp 0.6s ease forwards; animation-delay: 0.3s; opacity: 0; }
+.hero-body { animation: fadeUp 0.6s ease forwards; animation-delay: 0.4s; opacity: 0; }
+.hero-actions { animation: fadeUp 0.6s ease forwards; animation-delay: 0.5s; opacity: 0; }
+.hero-right { animation: fadeUp 0.8s ease forwards; animation-delay: 0.4s; opacity: 0; }
+
+/* ── URL DISPLAY ── */
+.url-display {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 8px 12px;
+  border-radius: 2px;
+  margin-top: 24px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.url-teal { color: var(--teal); }
+.url-dim { color: var(--faint); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-mark">
+    <div class="nav-glyph"></div>
+    <span class="nav-name">SPACENERV</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#">Concept</a></li>
+    <li><a href="#">Kits</a></li>
+    <li><a href="#">The Charta</a></li>
+    <li><a href="#">BRN Deployment</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <a href="#" class="nav-cta">Get a Kit</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Spatial Intelligence Platform</div>
+    <h1 class="hero-headline">The nervous<br>system of <em>your</em></h1>
+    <div class="hero-sub">habitat.</div>
+    <p class="hero-body">
+      A passive NFC and QR platform that turns every surface into a sensing node.
+      <strong>One tap. Authenticated presence. Real-time intelligence.</strong>
+      No app install. No dedicated hardware. Works on any phone.
+    </p>
+    <div class="hero-actions">
+      <a href="#" class="btn-primary">Get your kit</a>
+      <a href="#" class="btn-ghost">See how it works</a>
+    </div>
+    <div class="url-display">
+      <span class="url-teal">spacenerv.link</span>
+      <span class="url-dim">/to/</span>
+      <span>brn</span>
+      <span class="url-dim">/kitchen/hood/sop/v1</span>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="vis-container">
+      <!-- Orbits -->
+      <div class="orbit orbit-1"></div>
+      <div class="orbit orbit-2"></div>
+      <div class="orbit orbit-3"></div>
+      <div class="orbit orbit-4"></div>
+
+      <!-- Connection lines -->
+      <div class="connect-line" style="width:120px; transform:rotate(45deg)"></div>
+      <div class="connect-line" style="width:100px; transform:rotate(135deg)"></div>
+      <div class="connect-line" style="width:180px; transform:rotate(200deg)"></div>
+      <div class="connect-line" style="width:160px; transform:rotate(300deg)"></div>
+
+      <!-- Centre -->
+      <div class="centre-node"></div>
+
+      <!-- Satellite nodes -->
+      <div class="sat-node" style="top:18%;left:62%"></div>
+      <div class="sat-node dim" style="top:38%;left:85%"></div>
+      <div class="sat-node amber" style="top:72%;left:78%"></div>
+      <div class="sat-node" style="top:78%;left:28%"></div>
+      <div class="sat-node dim" style="top:22%;left:22%"></div>
+      <div class="sat-node" style="top:55%;left:8%"></div>
+
+      <!-- Node labels -->
+      <div class="node-label" style="top:14%;left:65%">Kitchen Hood</div>
+      <div class="node-label dim" style="top:34%;left:87%">Bar Station A</div>
+      <div class="node-label amber" style="top:76%;left:80%">Terrace B — overdue</div>
+      <div class="node-label" style="top:82%;left:20%">Main Entrance</div>
+      <div class="node-label dim" style="top:18%;left:4%">Prep Station</div>
+      <div class="node-label" style="top:59%;left:1%">Staff WC</div>
+
+      <!-- Live badge -->
+      <div class="live-badge">
+        <div class="live-dot"></div>
+        BRN Taladnoi · 6 nodes · realtime
+      </div>
+    </div>
+
+    <!-- Tap stream -->
+    <div class="tap-stream" style="position:absolute;right:-20px;top:20%">
+      <div class="tap-event">↗ Kitchen Hood · 09:14</div>
+      <div class="tap-event">↗ Prep Station · 09:18</div>
+      <div class="tap-event">↗ Bar Station A · 09:23</div>
+      <div class="tap-event">↗ Main Entrance · 09:31</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- WHAT IT IS -->
+<section class="what">
+  <div class="section-label">What it is</div>
+  <div class="what-content">
+    <h2 class="what-statement">
+      Every tap is a <em>photograph</em><br>
+      taken in darkness.
+    </h2>
+    <p class="what-body">
+      Passive NFC chips and QR codes embedded in architectural surfaces act as sensing nodes.
+      Human operators carrying smartphones serve as the data transmission channel.
+      The tap event — phone touching chip or camera reading code — is simultaneously
+      <strong>the physical operational action and its authenticated digital record.</strong>
+    </p>
+    <p class="what-body">
+      No dedicated hardware beyond the chip. No app install required.
+      Works on any NFC-enabled smartphone or any camera phone.
+      <strong>The intelligence emerges from the aggregate.</strong>
+    </p>
+
+    <div class="principles">
+      <div class="principle">
+        <div class="principle-num">01</div>
+        <div class="principle-title">The Tap</div>
+        <div class="principle-body">A single authenticated gesture. Phone to surface. The physical action and its digital record are one.</div>
+      </div>
+      <div class="principle">
+        <div class="principle-num">02</div>
+        <div class="principle-title">The Baseline</div>
+        <div class="principle-body">The system learns what normal looks like for each node. Rhythm. Deviation. Anomaly. Automatically.</div>
+      </div>
+      <div class="principle">
+        <div class="principle-num">03</div>
+        <div class="principle-title">The Octave</div>
+        <div class="principle-body">Intelligence emerges at harmonic thresholds. Node biography. Building self-knowledge. Typology intelligence.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS — CIRCULAR HELIX LOOP -->
+<section class="how">
+  <div class="how-label">The intelligence loop</div>
+
+  <div style="display:flex;align-items:center;gap:80px;margin-top:48px;">
+
+    <!-- SVG HELIX LOOP -->
+    <div style="flex-shrink:0;position:relative;width:420px;height:420px;">
+      <svg viewBox="0 0 420 420" width="420" height="420" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="centreGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#00C9A7" stop-opacity="0.15"/>
+            <stop offset="100%" stop-color="#00C9A7" stop-opacity="0"/>
+          </radialGradient>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="3" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <!-- Arrowhead -->
+          <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L8,3 z" fill="#00C9A7" opacity="0.7"/>
+          </marker>
+        </defs>
+
+        <!-- Glow centre -->
+        <circle cx="210" cy="210" r="160" fill="url(#centreGlow)"/>
+
+        <!-- Outer helix ring — dashed -->
+        <circle cx="210" cy="210" r="155" fill="none" stroke="rgba(0,201,167,0.08)" stroke-width="1" stroke-dasharray="4 6"/>
+
+        <!-- Main loop arc — the intelligence loop path -->
+        <!-- Full circle but with gap for the arrow direction, drawn as arc -->
+        <path d="M 210,55
+                 A 155,155 0 1,1 209,55"
+              fill="none"
+              stroke="rgba(0,201,167,0.25)"
+              stroke-width="1.5"
+              stroke-dasharray="none"
+              marker-end="url(#arrow)"
+              filter="url(#glow)"/>
+
+        <!-- Inner helix ring — offset -->
+        <circle cx="210" cy="210" r="125" fill="none" stroke="rgba(0,201,167,0.06)" stroke-width="1"/>
+
+        <!-- Helix cross threads — the 3D effect -->
+        <ellipse cx="210" cy="210" rx="155" ry="40" fill="none" stroke="rgba(0,201,167,0.05)" stroke-width="1" transform="rotate(0,210,210)"/>
+        <ellipse cx="210" cy="210" rx="155" ry="40" fill="none" stroke="rgba(0,201,167,0.05)" stroke-width="1" transform="rotate(60,210,210)"/>
+        <ellipse cx="210" cy="210" rx="155" ry="40" fill="none" stroke="rgba(0,201,167,0.05)" stroke-width="1" transform="rotate(120,210,210)"/>
+
+        <!-- NODE 01 — top — Chip/QR — 12 o'clock -->
+        <circle cx="210" cy="55" r="22" fill="#060708" stroke="#00C9A7" stroke-width="1.5" filter="url(#glow)"/>
+        <text x="210" y="52" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#00C9A7" font-weight="500">01</text>
+        <text x="210" y="63" text-anchor="middle" font-family="DM Mono, monospace" font-size="7" fill="rgba(0,201,167,0.5)">node</text>
+        <!-- Pulse ring -->
+        <circle cx="210" cy="55" r="28" fill="none" stroke="rgba(0,201,167,0.2)" stroke-width="1">
+          <animate attributeName="r" values="22;34;22" dur="3s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.4;0;0.4" dur="3s" repeatCount="indefinite"/>
+        </circle>
+
+        <!-- NODE 02 — top right — Phone tap — ~2 o'clock -->
+        <circle cx="344" cy="133" r="22" fill="#060708" stroke="rgba(0,201,167,0.5)" stroke-width="1.5"/>
+        <text x="344" y="130" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#00C9A7" font-weight="500">02</text>
+        <text x="344" y="141" text-anchor="middle" font-family="DM Mono, monospace" font-size="7" fill="rgba(0,201,167,0.4)">tap</text>
+
+        <!-- NODE 03 — right — Form — 4 o'clock -->
+        <circle cx="365" cy="287" r="22" fill="#060708" stroke="rgba(0,201,167,0.5)" stroke-width="1.5"/>
+        <text x="365" y="284" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#00C9A7" font-weight="500">03</text>
+        <text x="365" y="295" text-anchor="middle" font-family="DM Mono, monospace" font-size="7" fill="rgba(0,201,167,0.4)">form</text>
+
+        <!-- NODE 04 — bottom left — AI Baseline — 7 o'clock -->
+        <circle cx="76" cy="287" r="22" fill="#060708" stroke="rgba(0,201,167,0.5)" stroke-width="1.5"/>
+        <text x="76" y="284" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#00C9A7" font-weight="500">04</text>
+        <text x="76" y="295" text-anchor="middle" font-family="DM Mono, monospace" font-size="7" fill="rgba(0,201,167,0.4)">AI</text>
+
+        <!-- NODE 05 — top left — Dashboard — 10 o'clock -->
+        <circle cx="76" cy="133" r="22" fill="#060708" stroke="rgba(0,201,167,0.5)" stroke-width="1.5"/>
+        <text x="76" y="130" text-anchor="middle" font-family="DM Mono, monospace" font-size="9" fill="#00C9A7" font-weight="500">05</text>
+        <text x="76" y="141" text-anchor="middle" font-family="DM Mono, monospace" font-size="7" fill="rgba(0,201,167,0.4)">dash</text>
+
+        <!-- Centre label -->
+        <text x="210" y="204" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="13" fill="rgba(0,201,167,0.6)" font-style="italic">intelligence</text>
+        <text x="210" y="222" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="13" fill="rgba(0,201,167,0.4)" font-style="italic">loop</text>
+
+        <!-- Rotating particle on the loop -->
+        <circle r="4" fill="#00C9A7" filter="url(#glow)">
+          <animateMotion dur="6s" repeatCount="indefinite">
+            <mpath href="#loopPath"/>
+          </animateMotion>
+        </circle>
+        <path id="loopPath" d="M 210,55 A 155,155 0 1,1 209.9,55" fill="none"/>
+
+      </svg>
+    </div>
+
+    <!-- STEP DESCRIPTIONS — stacked vertically beside the loop -->
+    <div style="flex:1;display:flex;flex-direction:column;gap:32px;">
+
+      <div style="display:flex;gap:20px;align-items:flex-start;">
+        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--teal);letter-spacing:0.15em;min-width:24px;padding-top:3px;">01</div>
+        <div>
+          <div style="font-size:14px;font-weight:700;color:var(--white);margin-bottom:4px;">Chip or QR</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.7;">Passive node on any surface. No power. No battery. No maintenance. Print and place in under a minute.</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:20px;align-items:flex-start;">
+        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--teal);letter-spacing:0.15em;min-width:24px;padding-top:3px;">02</div>
+        <div>
+          <div style="font-size:14px;font-weight:700;color:var(--white);margin-bottom:4px;">Phone tap</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.7;">Any NFC phone or camera. No app install. The form appears instantly — in the operator's language.</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:20px;align-items:flex-start;">
+        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--teal);letter-spacing:0.15em;min-width:24px;padding-top:3px;">03</div>
+        <div>
+          <div style="font-size:14px;font-weight:700;color:var(--white);margin-bottom:4px;">Form submit</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.7;">Context-aware SOP checklist or compliance record. Your fields. Authenticated. Timestamped.</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:20px;align-items:flex-start;">
+        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--teal);letter-spacing:0.15em;min-width:24px;padding-top:3px;">04</div>
+        <div>
+          <div style="font-size:14px;font-weight:700;color:var(--white);margin-bottom:4px;">AI baseline</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.7;">Nightly computation learns each node's rhythm. Anomaly scores generated. Deviations flagged automatically.</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:20px;align-items:flex-start;">
+        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--teal);letter-spacing:0.15em;min-width:24px;padding-top:3px;">05</div>
+        <div>
+          <div style="font-size:14px;font-weight:700;color:var(--white);margin-bottom:4px;">Dashboard → node</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.7;">Real-time health grid. LINE Notify alerts. The intelligence returns to the node — the loop closes.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- KITS -->
+<section class="kits">
+  <div class="kits-header">
+    <h2 class="kits-title">Pre-configured kits<br>for every operation.</h2>
+    <div class="kits-sub">Download · Print · Use</div>
+  </div>
+  <div class="kit-grid">
+    <div class="kit-card">
+      <span class="kit-icon">🍳</span>
+      <div class="kit-name">Hospitality Ops</div>
+      <div class="kit-tagline">Kitchen to front of house. Every zone. Every shift.</div>
+      <div class="kit-nodes">8 nodes · Kitchen · Bar · Entrance · Terrace · BOH</div>
+      <div class="kit-price">
+        <span>฿990 / month</span>
+        <span style="color:var(--muted);font-size:9px">QR · instant</span>
+      </div>
+    </div>
+    <div class="kit-card">
+      <span class="kit-icon">🛏</span>
+      <div class="kit-name">Hotel Housekeeping</div>
+      <div class="kit-tagline">Floor-by-floor operational control. Prove every room was attended.</div>
+      <div class="kit-nodes">8 nodes · Housekeeping · Corridors · Amenities · BOH</div>
+      <div class="kit-price">
+        <span>฿990 / month</span>
+        <span style="color:var(--muted);font-size:9px">QR · instant</span>
+      </div>
+    </div>
+    <div class="kit-card">
+      <span class="kit-icon">🏪</span>
+      <div class="kit-name">Retail Ops</div>
+      <div class="kit-tagline">Every zone. Every shift. Nothing missed.</div>
+      <div class="kit-nodes">8 nodes · Shop Floor · Fitting Rooms · Cash · Storage</div>
+      <div class="kit-price">
+        <span>฿990 / month</span>
+        <span style="color:var(--muted);font-size:9px">QR · instant</span>
+      </div>
+    </div>
+    <div class="kit-card">
+      <span class="kit-icon">🏢</span>
+      <div class="kit-name">Corporate Facilities</div>
+      <div class="kit-tagline">Office operations intelligence. Reception to server room.</div>
+      <div class="kit-nodes">8 nodes · Reception · Meeting · Kitchen · Safety · IT</div>
+      <div class="kit-price">
+        <span>฿990 / month</span>
+        <span style="color:var(--muted);font-size:9px">QR · instant</span>
+      </div>
+    </div>
+    <div class="kit-card">
+      <span class="kit-icon">🏥</span>
+      <div class="kit-name">Healthcare Lite</div>
+      <div class="kit-tagline">Clinical compliance for small healthcare environments.</div>
+      <div class="kit-nodes">8 nodes · Reception · Consultation · Clinical · Waste</div>
+      <div class="kit-price">
+        <span>฿990 / month</span>
+        <span style="color:var(--muted);font-size:9px">QR · instant</span>
+      </div>
+    </div>
+    <div class="kit-card">
+      <span class="kit-icon">🏛</span>
+      <div class="kit-name">Heritage & Cultural</div>
+      <div class="kit-tagline">Stewardship intelligence for spaces where history lives.</div>
+      <div class="kit-nodes">8 nodes · Gallery · Archive · Conservation · Security</div>
+      <div class="kit-price">
+        <span>฿990 / month</span>
+        <span style="color:var(--muted);font-size:9px">QR · instant</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Personal tier note -->
+  <div style="margin-top:40px;padding:24px 32px;border:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;">
+    <div>
+      <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--teal);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:6px;">Personal · Studio · Maker</div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.6;">Running a personal studio, home workshop, or maker space? Ask about our personal tier — 3 nodes, ฿299/month.</div>
+    </div>
+    <a href="mailto:hello@spacenerv.io" style="font-family:'DM Mono',monospace;font-size:10px;color:var(--teal);text-decoration:none;border:1px solid var(--border-teal);padding:10px 20px;white-space:nowrap;letter-spacing:0.08em;flex-shrink:0;margin-left:40px;transition:background 0.2s;" onmouseover="this.style.background='rgba(0,201,167,0.08)'" onmouseout="this.style.background='transparent'">hello@spacenerv.io →</a>
+  </div>
+
+</section>
+
+<!-- CHARTA -->
+<section class="charta">
+  <div>
+    <div class="charta-label">The SpaceNerv Charta</div>
+    <div class="charta-title">A constitutional document for spatial intelligence.</div>
+  </div>
+  <div>
+    <div class="charta-quote">
+      "The darkness was always full. Every room, every corridor, every surface has been accumulating operational intelligence since the first human being entered it. We simply lacked the instrument to listen."
+    </div>
+    <div class="charta-attr">Article I · The Origin — Florian Gypser, Founder · DWNTWN Global Pte Ltd · Singapore</div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing">
+  <div class="pricing-label">Pricing</div>
+  <h2 class="pricing-title">Start immediately.<br>No hardware required.</h2>
+  <div class="pricing-cards">
+    <div class="pricing-card featured">
+      <div class="pricing-badge">Most popular</div>
+      <div class="pricing-tier">SpaceNerv QR</div>
+      <div class="pricing-amount">฿990</div>
+      <div class="pricing-period">per month · up to 8 nodes</div>
+      <ul class="pricing-features">
+        <li>Pre-configured kit for your category</li>
+        <li>QR labels — print and use in minutes</li>
+        <li>Real-time dashboard and node health</li>
+        <li>Spatial Baseline Engine — AI learning</li>
+        <li>LINE Notify anomaly alerts</li>
+        <li>Form schema editor — your checklists</li>
+        <li>Upgrade to NFC at any time</li>
+      </ul>
+      <a href="#" class="pricing-cta primary">Get your QR kit</a>
+    </div>
+    <div class="pricing-card">
+      <div class="pricing-tier">SpaceNerv NFC</div>
+      <div class="pricing-amount">฿1,490</div>
+      <div class="pricing-period">per month · hardware included</div>
+      <ul class="pricing-features">
+        <li>Everything in QR</li>
+        <li>8 pre-programmed NFC chips</li>
+        <li>Authenticated tap events</li>
+        <li>NS-ACTIVE confirmation feedback</li>
+        <li>Additional chips ฿290 each</li>
+        <li>QR fallback always included</li>
+        <li>Ships within 48 hours</li>
+      </ul>
+      <a href="#" class="pricing-cta secondary">Contact for NFC</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-brand">◈ SPACENERV</div>
+    <div class="footer-legal">
+      DWNTWN Global Pte Ltd<br>
+      160 Robinson Road #14-04<br>
+      Singapore Business Federation Centre<br>
+      Singapore 068914<br><br>
+      <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ee8882819c878f80ae9d9e8f8d8b808b9c98c08781">[email&#160;protected]</a><br>
+      spacenerv.io
+    </div>
+  </div>
+  <div>
+    <div class="footer-col-title">Platform</div>
+    <ul class="footer-links">
+      <li><a href="#">Concept</a></li>
+      <li><a href="#">The Charta</a></li>
+      <li><a href="#">BRN Taladnoi — First Deployment</a></li>
+      <li><a href="#">Kits</a></li>
+      <li><a href="#">Dashboard Login</a></li>
+    </ul>
+  </div>
+  <div>
+    <div class="footer-col-title">Legal</div>
+    <ul class="footer-links">
+      <li><a href="#">Terms of Service</a></li>
+      <li><a href="#">Privacy Policy</a></li>
+      <li><a hre
