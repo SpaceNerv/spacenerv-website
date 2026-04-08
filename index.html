@@ -211,11 +211,6 @@ footer{padding:60px 48px;border-top:1px solid var(--border);display:grid;grid-te
       <a href="https://www.spacenerv.link/waitlist" class="btn-primary">Join the waitlist</a>
       <a href="kits.html" class="btn-ghost">See the kits</a>
     </div>
-    <div class="url-display">
-      <span class="url-teal">spacenerv.link</span>
-      <span class="url-dim">/to/</span>
-      <span>brn-kitchen-hood</span>
-    </div>
   </div>
 
   <div class="hero-right">
@@ -243,7 +238,7 @@ footer{padding:60px 48px;border-top:1px solid var(--border);display:grid;grid-te
       <div class="node-label" style="top:59%;left:1%">Staff WC</div>
       <div class="live-badge">
         <div class="live-dot"></div>
-        BRN Songwat · 6 nodes · realtime
+        Baan Rim Naam · 6 nodes · realtime
       </div>
     </div>
     <div class="tap-stream" style="position:absolute;right:-20px;top:20%">
@@ -342,7 +337,7 @@ footer{padding:60px 48px;border-top:1px solid var(--border);display:grid;grid-te
       <div class="tl-date past">4 April 2026</div>
       <div>
         <div class="tl-event-title past">First tap recorded<span class="tl-badge tl-live">Live</span></div>
-        <div class="tl-event-desc">BRN Songwat · Kitchen Hood · 06:14 · Bangkok · 38 tap events in first week</div>
+        <div class="tl-event-desc">Baan Rim Naam · Kitchen Hood · 06:14 · Bangkok · 38 tap events in first week</div>
       </div>
     </div>
     <div class="tl-item">
@@ -453,7 +448,7 @@ footer{padding:60px 48px;border-top:1px solid var(--border);display:grid;grid-te
   <div style="display:grid;grid-template-columns:240px 1fr;gap:80px;align-items:start">
     <div>
       <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--teal);letter-spacing:0.25em;text-transform:uppercase;margin-bottom:16px">First deployment</div>
-      <div style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:var(--white);line-height:1.2">BRN Songwat<br><span style="color:var(--muted);font-size:24px">Bangkok · Chinatown</span></div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:var(--white);line-height:1.2">Baan Rim Naam<br><span style="color:var(--muted);font-size:24px">Bangkok · Chinatown</span></div>
     </div>
     <div>
       <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:var(--text);line-height:1.6;margin-bottom:24px;font-style:italic">A riverside restaurant on Songwat Road in Bangkok's Chinatown heritage district. Eight NFC nodes across five operational zones. The building learning to attend to itself.</div>
@@ -521,7 +516,7 @@ footer{padding:60px 48px;border-top:1px solid var(--border);display:grid;grid-te
     <div class="footer-col-title">Platform</div>
     <ul class="footer-links">
       <li><a href="charta.html">The Charta</a></li>
-      <li><a href="brn.html">BRN Songwat — First Deployment</a></li>
+      <li><a href="brn.html">Baan Rim Naam — First Deployment</a></li>
       <li><a href="kits.html">Kits</a></li>
       <li><a href="contact.html">Contact</a></li>
       <li><a href="https://www.spacenerv.link/dashboard">Dashboard Login</a></li>
@@ -536,6 +531,117 @@ footer{padding:60px 48px;border-top:1px solid var(--border);display:grid;grid-te
     </ul>
   </div>
 </footer>
+
+<!-- PIN GATE -->
+<div id="pin-gate" style="position:fixed;inset:0;background:rgba(6,7,8,0.97);backdrop-filter:blur(20px);z-index:1000;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:32px">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+    <div style="width:26px;height:26px;border:1.5px solid #00C9A7;border-radius:50%;display:flex;align-items:center;justify-content:center">
+      <div style="width:7px;height:7px;background:#00C9A7;border-radius:50%"></div>
+    </div>
+    <span style="font-family:'DM Mono',monospace;font-size:11px;color:#F8FAFC;letter-spacing:0.15em;font-weight:500">SPACENERV</span>
+  </div>
+  <div style="text-align:center">
+    <div style="font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;color:#F8FAFC;letter-spacing:-0.02em;margin-bottom:8px">Early access</div>
+    <div style="font-family:'DM Mono',monospace;font-size:10px;color:#64748B;letter-spacing:0.15em;text-transform:uppercase">Enter your access PIN to continue</div>
+  </div>
+  <div style="display:flex;gap:12px" id="pin-dots">
+    <div class="pd" style="width:14px;height:14px;border:1.5px solid #334155;border-radius:50%;transition:all 0.2s"></div>
+    <div class="pd" style="width:14px;height:14px;border:1.5px solid #334155;border-radius:50%;transition:all 0.2s"></div>
+    <div class="pd" style="width:14px;height:14px;border:1.5px solid #334155;border-radius:50%;transition:all 0.2s"></div>
+    <div class="pd" style="width:14px;height:14px;border:1.5px solid #334155;border-radius:50%;transition:all 0.2s"></div>
+    <div class="pd" style="width:14px;height:14px;border:1.5px solid #334155;border-radius:50%;transition:all 0.2s"></div>
+    <div class="pd" style="width:14px;height:14px;border:1.5px solid #334155;border-radius:50%;transition:all 0.2s"></div>
+  </div>
+  <!-- Hidden input captures keyboard on mobile -->
+  <input id="pin-input" type="number" inputmode="numeric" maxlength="6"
+    style="position:absolute;opacity:0;width:1px;height:1px;pointer-events:none"
+    autocomplete="off"/>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:240px;width:100%">
+    <button onclick="pinKey('1')" class="pk">1</button>
+    <button onclick="pinKey('2')" class="pk">2</button>
+    <button onclick="pinKey('3')" class="pk">3</button>
+    <button onclick="pinKey('4')" class="pk">4</button>
+    <button onclick="pinKey('5')" class="pk">5</button>
+    <button onclick="pinKey('6')" class="pk">6</button>
+    <button onclick="pinKey('7')" class="pk">7</button>
+    <button onclick="pinKey('8')" class="pk">8</button>
+    <button onclick="pinKey('9')" class="pk">9</button>
+    <button onclick="pinKey('del')" class="pk" style="color:#64748B;font-size:12px">⌫</button>
+    <button onclick="pinKey('0')" class="pk">0</button>
+    <button onclick="pinKey('del')" class="pk" style="color:#64748B;font-size:12px">✕</button>
+  </div>
+  <div id="pin-error" style="font-family:'DM Mono',monospace;font-size:10px;color:#EF4444;letter-spacing:0.1em;opacity:0;transition:opacity 0.3s">Incorrect PIN</div>
+  <div style="font-family:'DM Mono',monospace;font-size:9px;color:#334155;letter-spacing:0.1em;text-align:center">No PIN? Request access at<br>hello@spacenerv.io</div>
+</div>
+
+<style>
+.pk{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:#E2E8F0;font-family:'DM Mono',monospace;font-size:18px;font-weight:400;padding:16px;border-radius:4px;cursor:pointer;transition:all 0.15s;letter-spacing:0.05em}
+.pk:hover{background:rgba(0,201,167,0.1);border-color:rgba(0,201,167,0.3);color:#00C9A7}
+.pk:active{transform:scale(0.95)}
+</style>
+
+<script>
+const CORRECT_PIN = '240426';
+const SESSION_KEY = 'sn_pin_ok';
+let current = '';
+
+// Check if already verified this session
+if (sessionStorage.getItem(SESSION_KEY) === 'true') {
+  document.getElementById('pin-gate').style.display = 'none';
+}
+
+function updateDots() {
+  const dots = document.querySelectorAll('.pd');
+  dots.forEach((d, i) => {
+    if (i < current.length) {
+      d.style.background = '#00C9A7';
+      d.style.borderColor = '#00C9A7';
+    } else {
+      d.style.background = 'transparent';
+      d.style.borderColor = '#334155';
+    }
+  });
+}
+
+function pinKey(val) {
+  const err = document.getElementById('pin-error');
+  err.style.opacity = '0';
+
+  if (val === 'del') {
+    current = current.slice(0, -1);
+    updateDots();
+    return;
+  }
+
+  if (current.length >= 6) return;
+  current += val;
+  updateDots();
+
+  if (current.length === 6) {
+    setTimeout(() => {
+      if (current === CORRECT_PIN) {
+        sessionStorage.setItem(SESSION_KEY, 'true');
+        const gate = document.getElementById('pin-gate');
+        gate.style.transition = 'opacity 0.4s';
+        gate.style.opacity = '0';
+        setTimeout(() => gate.style.display = 'none', 400);
+      } else {
+        err.style.opacity = '1';
+        const dots = document.querySelectorAll('.pd');
+        dots.forEach(d => { d.style.borderColor = '#EF4444'; d.style.background = 'rgba(239,68,68,0.2)'; });
+        setTimeout(() => { current = ''; updateDots(); }, 800);
+      }
+    }, 200);
+  }
+}
+
+// Keyboard support
+document.addEventListener('keydown', e => {
+  if (document.getElementById('pin-gate').style.display === 'none') return;
+  if (e.key >= '0' && e.key <= '9') pinKey(e.key);
+  if (e.key === 'Backspace') pinKey('del');
+});
+</script>
 
 </body>
 </html>
