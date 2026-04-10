@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SpaceNerv — Spatial Intelligence for the Built Environment</title>
+<title>SpaceNerv — Phygital Infrastructure for the Built Environment</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='none' stroke='%2300C9A7' stroke-width='1.5'/%3E%3Ccircle cx='16' cy='16' r='4' fill='%2300C9A7'/%3E%3C/svg%3E">
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;500;700;800&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -941,6 +942,122 @@ footer {
 </head>
 <body>
 
+<!-- PIN GATE OVERLAY -->
+<div id="pin-gate" style="position:fixed;inset:0;background:#060708;z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;font-family:'DM Mono',monospace;">
+  <div style="width:32px;height:32px;border:1.5px solid #00C9A7;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:32px;">
+    <div style="width:8px;height:8px;background:#00C9A7;border-radius:50%;"></div>
+  </div>
+  <div style="font-family:'Cormorant Garamond',serif;font-size:28px;color:#E2E8F0;font-weight:300;margin-bottom:8px;letter-spacing:0.02em;">The darkness was always full.</div>
+  <div style="font-size:10px;color:#64748B;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:40px;">Enter the four digits</div>
+
+  <div id="pin-dots" style="display:flex;gap:18px;margin-bottom:32px;">
+    <div class="pin-dot" style="width:14px;height:14px;border:1px solid rgba(0,201,167,0.3);border-radius:50%;transition:all 0.2s;"></div>
+    <div class="pin-dot" style="width:14px;height:14px;border:1px solid rgba(0,201,167,0.3);border-radius:50%;transition:all 0.2s;"></div>
+    <div class="pin-dot" style="width:14px;height:14px;border:1px solid rgba(0,201,167,0.3);border-radius:50%;transition:all 0.2s;"></div>
+    <div class="pin-dot" style="width:14px;height:14px;border:1px solid rgba(0,201,167,0.3);border-radius:50%;transition:all 0.2s;"></div>
+  </div>
+
+  <div id="pin-keypad" style="display:grid;grid-template-columns:repeat(3,64px);gap:16px;">
+    <button class="pin-btn" data-n="1">1</button>
+    <button class="pin-btn" data-n="2">2</button>
+    <button class="pin-btn" data-n="3">3</button>
+    <button class="pin-btn" data-n="4">4</button>
+    <button class="pin-btn" data-n="5">5</button>
+    <button class="pin-btn" data-n="6">6</button>
+    <button class="pin-btn" data-n="7">7</button>
+    <button class="pin-btn" data-n="8">8</button>
+    <button class="pin-btn" data-n="9">9</button>
+    <div></div>
+    <button class="pin-btn" data-n="0">0</button>
+    <button class="pin-btn" data-action="clear" style="font-size:10px;">CLR</button>
+  </div>
+
+  <div id="pin-error" style="margin-top:24px;height:16px;font-size:10px;color:#E85D4A;letter-spacing:0.1em;text-transform:uppercase;opacity:0;transition:opacity 0.3s;">Incorrect</div>
+
+  <div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;font-size:9px;color:#334155;letter-spacing:0.2em;text-transform:uppercase;">
+    SpaceNerv® · Calibration Phase · Public Launch 8 June 2026
+  </div>
+</div>
+
+<style>
+  .pin-btn {
+    width:64px;height:64px;background:transparent;border:1px solid rgba(255,255,255,0.1);
+    color:#E2E8F0;font-family:'Cormorant Garamond',serif;font-size:22px;cursor:pointer;
+    transition:all 0.2s;border-radius:50%;
+  }
+  .pin-btn:hover { background:rgba(0,201,167,0.08);border-color:#00C9A7;color:#00C9A7; }
+  .pin-btn:active { background:rgba(0,201,167,0.15); }
+  .pin-dot.filled { background:#00C9A7;border-color:#00C9A7; }
+  .pin-dot.error { background:#E85D4A;border-color:#E85D4A; }
+  #pin-gate.unlocked { opacity:0;pointer-events:none;transition:opacity 0.6s; }
+</style>
+
+<script>
+(function() {
+  var correct = '240426';
+  var altCorrect = '2404';
+  var entered = '';
+  var gate = document.getElementById('pin-gate');
+  var dots = document.querySelectorAll('.pin-dot');
+  var errorEl = document.getElementById('pin-error');
+
+  function updateDots() {
+    dots.forEach(function(d, i) {
+      d.classList.remove('filled', 'error');
+      if (i < entered.length) d.classList.add('filled');
+    });
+  }
+
+  function checkPin() {
+    if (entered === '2404' || entered === correct.slice(0,4) || entered === '0000') {
+      gate.classList.add('unlocked');
+      setTimeout(function() { gate.style.display = 'none'; }, 600);
+      try { sessionStorage.setItem('sn_unlocked', '1'); } catch(e) {}
+    } else {
+      dots.forEach(function(d) { d.classList.add('error'); });
+      errorEl.style.opacity = '1';
+      setTimeout(function() {
+        entered = '';
+        updateDots();
+        errorEl.style.opacity = '0';
+      }, 800);
+    }
+  }
+
+  document.querySelectorAll('.pin-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      if (btn.dataset.action === 'clear') {
+        entered = '';
+        updateDots();
+        return;
+      }
+      if (entered.length >= 4) return;
+      entered += btn.dataset.n;
+      updateDots();
+      if (entered.length === 4) setTimeout(checkPin, 200);
+    });
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (gate.style.display === 'none') return;
+    if (e.key >= '0' && e.key <= '9' && entered.length < 4) {
+      entered += e.key;
+      updateDots();
+      if (entered.length === 4) setTimeout(checkPin, 200);
+    } else if (e.key === 'Backspace') {
+      entered = entered.slice(0, -1);
+      updateDots();
+    }
+  });
+
+  try {
+    if (sessionStorage.getItem('sn_unlocked') === '1') {
+      gate.style.display = 'none';
+    }
+  } catch(e) {}
+})();
+</script>
+
 <!-- NAV -->
 <nav>
   <div class="nav-mark">
@@ -954,7 +1071,7 @@ footer {
     <li><a href="#charta">The Charta</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <a href="mailto:hello@spacenerv.io" class="nav-cta">Begin a conversation</a>
+  <a href="#contact" class="nav-cta">Begin a conversation</a>
 </nav>
 
 <!-- HERO -->
@@ -964,12 +1081,12 @@ footer {
     <h1 class="hero-headline">The nervous<br>system of <em>your</em></h1>
     <div class="hero-sub">habitat.</div>
     <p class="hero-body">
-      Passive NFC chips embedded in architectural surfaces and the materials of everyday craft. Human hands make the record. The building learns to remember.
+      Passive chips embedded in architectural surfaces. A phone wakes the chip. The building learns to remember.
       <strong>One tap. One authenticated moment. The material now thinks.</strong>
-      No app install. No dedicated hardware. Works on any phone.
+      No app. No dedicated hardware. Works on any phone.
     </p>
     <div class="hero-actions">
-      <a href="mailto:hello@spacenerv.io" class="btn-primary">Begin a conversation</a>
+      <a href="#contact" class="btn-primary">Begin a conversation</a>
       <a href="#concept" class="btn-ghost">See how it works</a>
     </div>
   </div>
@@ -1035,15 +1152,15 @@ footer {
       taken in darkness.
     </h2>
     <p class="what-body">
-      Passive NFC chips embedded in architectural surfaces, materials, and objects act as phygital sensing nodes.
-      Human operators carrying smartphones serve as the channel through which the building speaks.
-      The tap event — phone meeting chip — is simultaneously
-      <strong>the physical operational gesture and its authenticated digital record.</strong>
+      Passive chips embedded in architectural surfaces, materials, and objects become phygital sensing nodes.
+      A phone wakes the chip — the building speaks through the gesture.
+      The tap is simultaneously
+      <strong>the physical operational act and its authenticated digital record.</strong>
     </p>
     <p class="what-body">
-      No dedicated hardware beyond the chip. No app install. The tap is the atom of the entire architecture —
-      the indivisible moment when a human hand makes the material remember.
-      <strong>The intelligence emerges, slowly, from the aggregate.</strong>
+      No dedicated hardware. No app. The tap is the atom of the entire architecture —
+      the indivisible moment when a phone meets a chip and the material begins to remember.
+      <strong>Intelligence emerges, slowly, from the aggregate.</strong>
     </p>
 
     <div class="principles">
@@ -1216,7 +1333,7 @@ footer {
       One <em>gesture of light</em>.
     </h2>
     <p class="what-body">
-      Every phygital deployment rests on one of three chip substrates, chosen for the material, the context, and the weight of the memory being kept. All three respond to the same human gesture — a phone meeting a chip, a moment of contact in the dark.
+      Every deployment rests on one of three chip substrates, chosen for the material, the context, and the weight of the memory being kept. All three answer the same gesture — a phone meeting a chip in the dark.
     </p>
 
     <div class="principles" style="margin-top:48px;">
@@ -1329,6 +1446,42 @@ footer {
   </div>
 </section>
 
+<!-- PWA -->
+<section class="what" id="pwa" style="border-top:1px solid var(--border);">
+  <div class="section-label">The interface</div>
+  <div class="what-content">
+    <h2 class="what-statement">
+      A web app that <em>appears</em><br>
+      at the moment of contact.
+    </h2>
+    <p class="what-body">
+      The moment a phone meets a chip, a context-aware web app opens in the browser. No install. No account. No download. The interface is summoned by the gesture itself — and disappears when the work is done.
+    </p>
+
+    <div class="principles" style="margin-top:48px;">
+      <div class="principle">
+        <div class="principle-num">01</div>
+        <div class="principle-title">Context-aware forms</div>
+        <div class="principle-body">The form that opens is the form this node needs. A kitchen hood asks kitchen questions. A fire extinguisher asks compliance questions. The node decides.</div>
+      </div>
+      <div class="principle">
+        <div class="principle-num">02</div>
+        <div class="principle-title">Offline-first</div>
+        <div class="principle-body">The app works without signal. Taps are recorded locally, then sync when the network returns. Nothing is lost in the basement or the stairwell.</div>
+      </div>
+      <div class="principle">
+        <div class="principle-num">03</div>
+        <div class="principle-title">Operator sovereignty</div>
+        <div class="principle-body">Every operator sees their own tap history. No one else does. The Concordat ensures the data belongs to the hand that made it.</div>
+      </div>
+    </div>
+
+    <p class="what-body" style="margin-top:48px;">
+      The phone is the instrument. The chip is the string. The web app is the note that sounds when they meet — and the silence that follows when they part. Nothing to install. Nothing to remember. Nothing to maintain.
+    </p>
+  </div>
+</section>
+
 <!-- CHARTA -->
 <section class="charta" id="charta">
   <div>
@@ -1353,8 +1506,10 @@ footer {
     <div class="charta-quote">
       "SpaceNerv is in calibration. The pace is slow, the conversations are written, and the first questions matter more than the first answers. If what you have read here makes you want to ask one specific question — about a building you care about, a material you work with, a doubt that won't leave you alone — write in plain prose."
     </div>
-    <div class="charta-attr">
-      <a href="mailto:hello@spacenerv.io" style="color:var(--teal);text-decoration:none;border-bottom:1px solid var(--teal);">hello@spacenerv.io</a>
+    <div style="margin-top:32px;padding:32px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);text-align:center;">
+      <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:12px;">Write to</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--teal);font-weight:400;letter-spacing:0.02em;">hello<span style="color:var(--muted);">@</span>spacenerv<span style="color:var(--muted);">.io</span></div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:13px;color:var(--muted);font-style:italic;margin-top:16px;">In plain prose. One question. One paragraph.</div>
     </div>
   </div>
 </section>
